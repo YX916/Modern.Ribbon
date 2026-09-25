@@ -2,18 +2,20 @@
 
 	<PropertyGroup>
 		<TargetFramework>net10.0-windows</TargetFramework>
+		<RootNamespace>Modern</RootNamespace>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Platforms>x64</Platforms>
 		<OutputType>Library</OutputType>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="NativeMethods.txt" />
-	</ItemGroup>
-
-	<ItemGroup>
+		<None Include="..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
@@ -32,21 +34,21 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<!-- NuGet -->
+	<PropertyGroup>
+		<Authors>YYXIsLucky</Authors>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageProjectUrl>https://github.com/YX916/Modern.Ribbon</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/YX916/Modern.Ribbon.git</RepositoryUrl>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
 
 	<PropertyGroup>
 		<FilesForXamlCombine>Themes\Controls\*.xaml;Themes\Common.xaml</FilesForXamlCombine>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Copyright>Copyright © 2025 - $([System.DateTime]::Today.ToString(yyyy)) YYX</Copyright>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<Version>1.0.1</Version>
 	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(IsBuildingInsideRider)' == 'True'">
-		<DefaultItemExcludes>$(DefaultItemExcludes);$(FilesForXamlCombine)</DefaultItemExcludes>
-	</PropertyGroup>
-
-	<ItemGroup Condition="'$(IsBuildingInsideRider)' == 'True'">
-		<Page Include="$(FilesForXamlCombine)" />
-	</ItemGroup>
-
 	<ItemGroup>
 		<XAMLCombineItems Include="$(FilesForXamlCombine)">
 			<TargetFile>Themes\Styles.xaml</TargetFile>
