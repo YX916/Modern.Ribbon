@@ -1,0 +1,6 @@
+<Application x:Class="Modern.Ribbon.Simple.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Modern.Ribbon.Simple" StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary Source="/Modern.Ribbon;component/Themes/Generic.xaml" />
+    </Application.Resources>
+</Application>

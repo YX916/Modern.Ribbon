@@ -1,0 +1,8 @@
+<MD:RibbonWindow x:Class="Modern.Ribbon.Simple.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:MD="clr-namespace:Modern;assembly=Modern.Ribbon" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:Modern.Ribbon.Simple"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Title="MainWindow" Width="800"
+                 Height="450" Icon="/application.ico" mc:Ignorable="d">
+    <Grid>
+        <TextBlock Foreground="White" Text="内容" />
+    </Grid>
+</MD:RibbonWindow>

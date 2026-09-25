@@ -1,0 +1,69 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" mc:Ignorable="options d">
+    <!--  COLORS  -->
+
+    <!--  Accent colors  -->
+    <Color x:Key="Modern.Ribbon.Colors.AccentBase">#FF0078D7</Color>
+    <!--  80%  -->
+    <Color x:Key="Modern.Ribbon.Colors.Accent80">#CC0078D7</Color>
+    <!--  60%  -->
+    <Color x:Key="Modern.Ribbon.Colors.Accent60">#990078D7</Color>
+    <!--  40%  -->
+    <Color x:Key="Modern.Ribbon.Colors.Accent40">#660078D7</Color>
+    <!--  20%  -->
+    <Color x:Key="Modern.Ribbon.Colors.Accent20">#330078D7</Color>
+
+    <Color x:Key="Modern.Ribbon.Colors.Highlight">#FF1651AA</Color>
+
+    <Color x:Key="Modern.Ribbon.Colors.AccentLight1">#FF1D89DE</Color>
+    <Color x:Key="Modern.Ribbon.Colors.AccentLight1.Foreground">#FF000000</Color>
+    <Color x:Key="Modern.Ribbon.Colors.AccentLight2">#FF3B9BE5</Color>
+    <Color x:Key="Modern.Ribbon.Colors.AccentLight2.Foreground">#FF000000</Color>
+    <Color x:Key="Modern.Ribbon.Colors.AccentLight3">#FF58ACED</Color>
+    <Color x:Key="Modern.Ribbon.Colors.AccentLight3.Foreground">#FF000000</Color>
+    <Color x:Key="Modern.Ribbon.Colors.AccentDark1">#FF0068C6</Color>
+    <Color x:Key="Modern.Ribbon.Colors.AccentDark1.Foreground">#FFFFFFFF</Color>
+    <Color x:Key="Modern.Ribbon.Colors.AccentDark2">#FF0058B4</Color>
+    <Color x:Key="Modern.Ribbon.Colors.AccentDark2.Foreground">#FFFFFFFF</Color>
+    <Color x:Key="Modern.Ribbon.Colors.AccentDark3">#FF0048A3</Color>
+    <Color x:Key="Modern.Ribbon.Colors.AccentDark3.Foreground">#FFFFFFFF</Color>
+
+    <!--  Base colors  -->
+    <Color x:Key="Modern.Ribbon.Colors.Black">#FF000000</Color>
+    <Color x:Key="Modern.Ribbon.Colors.Black20">#51000000</Color>
+    <Color x:Key="Modern.Ribbon.Colors.White">#FFFFFFFF</Color>
+    <Color x:Key="Modern.Ribbon.Colors.White20">#51FFFFFF</Color>
+    <Color x:Key="Modern.Ribbon.Colors.Gray1">#FF333333</Color>
+    <Color x:Key="Modern.Ribbon.Colors.Gray2">#FF7F7F7F</Color>
+    <Color x:Key="Modern.Ribbon.Colors.Gray3">#FF9D9D9D</Color>
+    <Color x:Key="Modern.Ribbon.Colors.Gray4">#FFA59F93</Color>
+    <Color x:Key="Modern.Ribbon.Colors.Gray5">#FFB9B9B9</Color>
+    <Color x:Key="Modern.Ribbon.Colors.Gray6">#FFCCCCCC</Color>
+    <Color x:Key="Modern.Ribbon.Colors.Gray7">#FFD8D8D9</Color>
+    <Color x:Key="Modern.Ribbon.Colors.Gray8">#FFE0E0E0</Color>
+    <Color x:Key="Modern.Ribbon.Colors.Gray9">#5EC9C9C9</Color>
+    <Color x:Key="Modern.Ribbon.Colors.Gray10">#FFF7F7F7</Color>
+
+    <Color x:Key="Modern.Ribbon.Colors.TransparentWhite">#00FFFFFF</Color>
+    <Color x:Key="Modern.Ribbon.Colors.HighTransparentWhite">#17FFFFFF</Color>
+
+    <!--  Foreground  -->
+    <Color x:Key="Modern.Ribbon.Colors.IdealForeground">White</Color>
+    <Color x:Key="Modern.Ribbon.Colors.DarkIdealForegroundDisabled">#ADADAD</Color>
+
+    <!--  Misc colors  -->
+    <Color x:Key="Modern.Ribbon.Colors.ExtremeHighlight">#FFFFD232</Color>
+    <Color x:Key="Modern.Ribbon.Colors.DarkExtremeHighlight">#FFF29536</Color>
+
+    <!--  END COLORS  -->
+
+    <!--  BRUSHES  -->
+
+    <!--  RibbonWindow  -->
+    <SolidColorBrush x:Key="Modern.Ribbon.Brushes.RibbonWindow.Background" options:Freeze="True" Color="#FFFAFAFA" />
+    <SolidColorBrush x:Key="Modern.Ribbon.Brushes.RibbonWindow.Background.Backdrop.Acrylic" options:Freeze="True" Color="#60FFFFFF" />
+    <SolidColorBrush x:Key="Modern.Ribbon.Brushes.RibbonWindow.Background.Backdrop.Auto" options:Freeze="True" Color="#BBFFFFFF" />
+    <SolidColorBrush x:Key="Modern.Ribbon.Brushes.RibbonWindow.TitleBackground" options:Freeze="True" Color="Transparent" />
+    <SolidColorBrush x:Key="Modern.Ribbon.Brushes.RibbonWindow.TitleForeground" options:Freeze="True" Color="{StaticResource Modern.Ribbon.Colors.Black}" />
+    <!--  END BRUSHES  -->
+</ResourceDictionary>

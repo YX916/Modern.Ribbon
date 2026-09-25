@@ -1,0 +1,12 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="Modern.Ribbon.Simple/Modern.Ribbon.Simple.csproj" Id="32347c31-5b5d-4ebf-90c2-2cdd9e071221">
+    <Platform Project="x64" />
+    <Build Solution="Release|*" Project="false" />
+  </Project>
+  <Project Path="Modern.Ribbon/Modern.Ribbon.csproj">
+    <Platform Project="x64" />
+  </Project>
+</Solution>
