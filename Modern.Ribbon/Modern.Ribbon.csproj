@@ -14,10 +14,43 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="ControlzEx" Version="7.0.4" />
 		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.335">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="XAMLTools.MSBuild" Version="1.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+
+	<PropertyGroup>
+		<FilesForXamlCombine>Themes\Controls\*.xaml;Themes\Common.xaml</FilesForXamlCombine>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(IsBuildingInsideRider)' == 'True'">
+		<DefaultItemExcludes>$(DefaultItemExcludes);$(FilesForXamlCombine)</DefaultItemExcludes>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(IsBuildingInsideRider)' == 'True'">
+		<Page Include="$(FilesForXamlCombine)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<XAMLCombineItems Include="$(FilesForXamlCombine)">
+			<TargetFile>Themes\Styles.xaml</TargetFile>
+			<Visible>False</Visible>
+		</XAMLCombineItems>
 	</ItemGroup>
 </Project>

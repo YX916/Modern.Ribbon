@@ -5,6 +5,9 @@ using System.Windows.Media;
 using ControlzEx;
 using Modern.Internal.KnownBoxes;
 
+/// <summary>
+/// Ribbon 窗口
+/// </summary>
 [TemplatePart(Name = PART_Icon, Type = typeof(UIElement))]
 [TemplatePart(Name = PART_ContentPresenter, Type = typeof(UIElement))]
 [TemplatePart(Name = PART_RibbonTitleBar, Type = typeof(RibbonTitleBar))]
