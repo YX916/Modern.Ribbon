@@ -6,8 +6,7 @@ namespace Windows.Win32;
 using global::System;
 using global::System.Runtime.InteropServices;
 
-internal partial class PInvoke
-{
+internal partial class PInvoke {
     /// <summary>
     /// Creates a Color dialog box that enables the user to select a color.
     /// </summary>
@@ -21,8 +20,7 @@ internal partial class PInvoke
     /// Contains information the ChooseColor function uses to initialize the Color dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure. 
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    internal class CHOOSECOLOR
-    {
+    internal class CHOOSECOLOR {
         /// <summary>
         /// The length, in bytes, of the structure. 
         /// </summary>

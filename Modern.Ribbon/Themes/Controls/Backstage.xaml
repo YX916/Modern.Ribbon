@@ -1,0 +1,83 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Modern="clr-namespace:Modern"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
+    <Storyboard x:Key="Modern.Ribbon.Storyboards.Backstage.IsOpenTrueStoryboard">
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)">
+            <EasingThicknessKeyFrame KeyTime="0"
+                                     Value="-125,0,0,0" />
+            <EasingThicknessKeyFrame KeyTime="0:0:0.5"
+                                     Value="0">
+                <EasingThicknessKeyFrame.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </EasingThicknessKeyFrame.EasingFunction>
+            </EasingThicknessKeyFrame>
+        </ThicknessAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="Modern.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard">
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)">
+            <EasingThicknessKeyFrame KeyTime="0"
+                                     Value="0" />
+            <EasingThicknessKeyFrame KeyTime="0:0:0.3"
+                                     Value="-125,0,0,0">
+                <EasingThicknessKeyFrame.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </EasingThicknessKeyFrame.EasingFunction>
+            </EasingThicknessKeyFrame>
+        </ThicknessAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <ControlTemplate x:Key="Modern.Ribbon.Templates.BackstageToggleButton"
+                     TargetType="{x:Type Modern:Backstage}">
+        <Grid x:Name="root"
+              Background="{TemplateBinding Background}"
+              ToolTip="{TemplateBinding ToolTip}">
+            <Border x:Name="underlineBorder"
+                    Width="{Binding ElementName=contentPresenter, Path=ActualWidth}"
+                    Margin="0 0 0 3"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Background="Transparent"
+                    BorderBrush="{DynamicResource Modern.Ribbon.Brushes.Gray2}"
+                    BorderThickness="0 0 0 2"
+                    Visibility="Collapsed" />
+
+            <ContentPresenter x:Name="contentPresenter"
+                              Margin="9 3 9 6"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Stretch"
+                              ContentSource="Header" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="contentPresenter" Property="Effect">
+                    <Setter.Value>
+                        <Modern:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="root" Property="Opacity" Value="0.5" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="Modern.Ribbon.Styles.RibbonBackstage"
+           TargetType="{x:Type Modern:Backstage}">
+        <Setter Property="AreAnimationsEnabled" Value="{DynamicResource {x:Static SystemParameters.ClientAreaAnimationKey}}" />
+        <Setter Property="Background" Value="{DynamicResource Modern.Ribbon.Brushes.Backstage.Background}" />
+        <Setter Property="Modern:FrameworkHelper.UseLayoutRounding" Value="True" />
+        <Setter Property="Modern:KeyTip.Keys" Value="{Binding Source={x:Static Modern:RibbonLocalization.Current}, Path=Localization.BackstageButtonKeyTip, Mode=OneWay}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Modern.Ribbon.Styles.FocusVisual}" />
+        <Setter Property="Foreground" Value="{DynamicResource Modern.Ribbon.Brushes.Backstage.Foreground}" />
+        <Setter Property="Header" Value="{Binding Source={x:Static Modern:RibbonLocalization.Current}, Path=Localization.BackstageButtonText, Mode=OneWay}" />
+        <Setter Property="KeyboardNavigation.TabIndex" Value="1" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template" Value="{DynamicResource Modern.Ribbon.Templates.BackstageToggleButton}" />
+        <Setter Property="ToolTipService.IsEnabled" Value="False" />
+    </Style>
+</ResourceDictionary>

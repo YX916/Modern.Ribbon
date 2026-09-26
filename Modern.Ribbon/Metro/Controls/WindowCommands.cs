@@ -1,15 +1,20 @@
+// ReSharper disable once CheckNamespace
 namespace Modern;
 
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Windows.Win32;
-using Modern.Internal.KnownBoxes;
 using Modern.Helpers;
+using Modern.Internal.KnownBoxes;
+using Windows.Win32;
 
+/// <summary>
+/// Contains commands for <see cref="RibbonWindow"/>
+/// </summary>
 [TemplatePart(Name = "PART_Min", Type = typeof(Button))]
 [TemplatePart(Name = "PART_Max", Type = typeof(Button))]
 [TemplatePart(Name = "PART_Restore", Type = typeof(Button))]

@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Modern="clr-namespace:Modern">
+    <Style x:Key="Modern.Ribbon.Styles.RibbonStartScreen"
+           TargetType="{x:Type Modern:StartScreen}"
+           BasedOn="{StaticResource Modern.Ribbon.Styles.RibbonBackstage}">
+        <Setter Property="AreAnimationsEnabled" Value="False" />
+        <Setter Property="Modern:KeyTip.Keys" Value="{x:Null}" />
+        <Setter Property="HideContextTabsOnOpen" Value="True" />
+        <Setter Property="Template" Value="{x:Null}" />
+    </Style>
+</ResourceDictionary>

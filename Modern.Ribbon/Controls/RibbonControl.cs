@@ -1,0 +1,538 @@
+// ReSharper disable once CheckNamespace
+namespace Modern;
+
+using System;
+using System.Collections;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Shapes;
+
+using Modern.Collections;
+using Modern.Extensions;
+using Modern.Helpers;
+using Modern.Internal;
+using Modern.Internal.KnownBoxes;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using Windows.Win32.Graphics.Gdi;
+
+/// <summary>
+/// Represent base class for Modern controls
+/// </summary>
+public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemProvider, IRibbonControl {
+    #region KeyTip
+
+    /// <inheritdoc />
+    public string? KeyTip {
+        get => (string?)this.GetValue(KeyTipProperty);
+        set => this.SetValue(KeyTipProperty, value);
+    }
+
+    /// <summary>
+    /// Using a DependencyProperty as the backing store for Keys.
+    /// This enables animation, styling, binding, etc...
+    /// </summary>
+    public static readonly DependencyProperty KeyTipProperty = Modern.KeyTip.KeysProperty.AddOwner(typeof(RibbonControl));
+
+    #endregion
+
+    #region Header
+
+    /// <inheritdoc />
+    public object? Header {
+        get => this.GetValue(HeaderProperty);
+        set => this.SetValue(HeaderProperty, value);
+    }
+
+    /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
+    public static readonly DependencyProperty HeaderProperty =
+        DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+    /// <inheritdoc />
+    public DataTemplate? HeaderTemplate {
+        get => (DataTemplate?)this.GetValue(HeaderTemplateProperty);
+        set => this.SetValue(HeaderTemplateProperty, value);
+    }
+
+    /// <summary>Identifies the <see cref="HeaderTemplate"/> dependency property.</summary>
+    public static readonly DependencyProperty HeaderTemplateProperty =
+        DependencyProperty.Register(nameof(HeaderTemplate), typeof(DataTemplate), typeof(RibbonControl), new PropertyMetadata());
+
+    /// <inheritdoc />
+    public DataTemplateSelector? HeaderTemplateSelector {
+        get => (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty);
+        set => this.SetValue(HeaderTemplateSelectorProperty, value);
+    }
+
+    /// <summary>Identifies the <see cref="HeaderTemplateSelector"/> dependency property.</summary>
+    public static readonly DependencyProperty HeaderTemplateSelectorProperty =
+        DependencyProperty.Register(nameof(HeaderTemplateSelector), typeof(DataTemplateSelector), typeof(RibbonControl), new PropertyMetadata());
+
+    #endregion
+
+    #region Icon
+
+    /// <inheritdoc />
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Localizable(false)]
+    public object? Icon {
+        get => this.GetValue(IconProperty);
+        set => this.SetValue(IconProperty, value);
+    }
+
+    /// <summary>Identifies the <see cref="Icon"/> dependency property.</summary>
+    public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(object), typeof(RibbonControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+    #endregion
+
+    #region Command
+
+    private bool currentCanExecute = true;
+
+    /// <inheritdoc />
+    [Category("Action")]
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Bindable(true)]
+    public ICommand? Command {
+        get => (ICommand?)this.GetValue(CommandProperty);
+
+        set => this.SetValue(CommandProperty, value);
+    }
+
+    /// <inheritdoc />
+    [Bindable(true)]
+    [Localizability(LocalizationCategory.NeverLocalize)]
+    [Category("Action")]
+    public object CommandParameter {
+        get => this.GetValue(CommandParameterProperty);
+
+        set => this.SetValue(CommandParameterProperty, value);
+    }
+
+    /// <inheritdoc />
+    [Bindable(true)]
+    [Category("Action")]
+    public IInputElement CommandTarget {
+        get => (IInputElement)this.GetValue(CommandTargetProperty);
+
+        set => this.SetValue(CommandTargetProperty, value);
+    }
+
+    /// <summary>Identifies the <see cref="CommandParameter"/> dependency property.</summary>
+    public static readonly DependencyProperty CommandParameterProperty = ButtonBase.CommandParameterProperty.AddOwner(typeof(RibbonControl), new PropertyMetadata());
+
+    /// <summary>Identifies the <see cref="Command"/> dependency property.</summary>
+    public static readonly DependencyProperty CommandProperty = ButtonBase.CommandProperty.AddOwner(typeof(RibbonControl), new PropertyMetadata(OnCommandChanged));
+
+    /// <summary>Identifies the <see cref="CommandTarget"/> dependency property.</summary>
+    public static readonly DependencyProperty CommandTargetProperty = ButtonBase.CommandTargetProperty.AddOwner(typeof(RibbonControl), new PropertyMetadata());
+
+    /// <summary>
+    /// Handles Command changed
+    /// </summary>
+    private static void OnCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+        if (d is not RibbonControl control) {
+            return;
+        }
+
+        if (e.OldValue is ICommand oldCommand) {
+            oldCommand.CanExecuteChanged -= control.OnCommandCanExecuteChanged;
+        }
+
+        if (e.NewValue is ICommand newCommand) {
+            newCommand.CanExecuteChanged += control.OnCommandCanExecuteChanged;
+
+            if (e.NewValue is RoutedUICommand routedUiCommand
+                && control.Header is null) {
+                control.Header = routedUiCommand.Text;
+            }
+        }
+
+        control.UpdateCanExecute();
+    }
+
+    /// <summary>
+    /// Handles Command CanExecute changed
+    /// </summary>
+    private void OnCommandCanExecuteChanged(object? sender, EventArgs e) {
+        this.UpdateCanExecute();
+    }
+
+    private void UpdateCanExecute() {
+        var canExecute = this.Command is not null
+                         && this.CanExecuteCommand();
+
+        if (this.currentCanExecute != canExecute) {
+            this.currentCanExecute = canExecute;
+            this.CoerceValue(IsEnabledProperty);
+        }
+    }
+
+    #endregion
+
+    #region IsEnabled
+
+    /// <inheritdoc />
+    protected override bool IsEnabledCore => base.IsEnabledCore && (this.currentCanExecute || this.Command is null);
+
+    #endregion
+
+    #region Size
+
+    /// <inheritdoc />
+    public RibbonControlSize Size {
+        get => (RibbonControlSize)this.GetValue(SizeProperty);
+        set => this.SetValue(SizeProperty, value);
+    }
+
+    /// <summary>Identifies the <see cref="Size"/> dependency property.</summary>
+    public static readonly DependencyProperty SizeProperty = RibbonProperties.SizeProperty.AddOwner(typeof(RibbonControl));
+
+    #endregion
+
+    #region SizeDefinition
+
+    /// <inheritdoc />
+    public RibbonControlSizeDefinition SizeDefinition {
+        get => (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty);
+        set => this.SetValue(SizeDefinitionProperty, value);
+    }
+
+    /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
+    public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(RibbonControl));
+
+    #endregion
+
+    #region Constructors
+
+    /// <summary>
+    /// Static constructor
+    /// </summary>
+    static RibbonControl() {
+        var type = typeof(RibbonControl);
+        ContextMenuService.Attach(type);
+        ToolTipService.Attach(type);
+    }
+
+    /// <summary>
+    /// Default Constructor
+    /// </summary>
+    protected RibbonControl() {
+        ContextMenuService.Coerce(this);
+    }
+
+    #endregion
+
+    #region QuickAccess
+
+    /// <inheritdoc />
+    public abstract FrameworkElement CreateQuickAccessItem();
+
+    /// <summary>
+    /// Binds default properties of control to quick access element
+    /// </summary>
+    /// <param name="source">Source item</param>
+    /// <param name="target">Toolbar item</param>
+    public static void BindQuickAccessItem(FrameworkElement source, FrameworkElement target) {
+        Bind(source, target, nameof(source.DataContext), DataContextProperty, BindingMode.OneWay);
+
+        Bind(source, target, nameof(FontFamily), FontFamilyProperty, BindingMode.OneWay);
+        Bind(source, target, nameof(FontSize), FontSizeProperty, BindingMode.OneWay);
+        Bind(source, target, nameof(FontStretch), FontStretchProperty, BindingMode.OneWay);
+        Bind(source, target, nameof(FontStyle), FontStyleProperty, BindingMode.OneWay);
+        Bind(source, target, nameof(FontWeight), FontWeightProperty, BindingMode.OneWay);
+
+        Bind(source, target, nameof(Foreground), ForegroundProperty, BindingMode.OneWay);
+        Bind(source, target, nameof(IsEnabled), IsEnabledProperty, BindingMode.OneWay);
+        Bind(source, target, nameof(Opacity), OpacityProperty, BindingMode.OneWay);
+        Bind(source, target, nameof(SnapsToDevicePixels), SnapsToDevicePixelsProperty, BindingMode.OneWay);
+
+        Bind(source, target, FocusManager.IsFocusScopeProperty, BindingMode.OneWay);
+
+        Bind(source, target, InputControlProperties.InputMinWidthProperty, BindingMode.OneWay);
+        Bind(source, target, InputControlProperties.InputWidthProperty, BindingMode.OneWay);
+        Bind(source, target, InputControlProperties.InputHeightProperty, BindingMode.OneWay);
+
+        if (source is ICommandSource) {
+            if (source is MenuItem) {
+                Bind(source, target, nameof(ICommandSource.CommandParameter), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
+                Bind(source, target, nameof(ICommandSource.CommandTarget), System.Windows.Controls.MenuItem.CommandTargetProperty, BindingMode.OneWay);
+                Bind(source, target, nameof(ICommandSource.Command), System.Windows.Controls.MenuItem.CommandProperty, BindingMode.OneWay);
+            } else {
+                Bind(source, target, nameof(ICommandSource.CommandParameter), ButtonBase.CommandParameterProperty, BindingMode.OneWay);
+                Bind(source, target, nameof(ICommandSource.CommandTarget), ButtonBase.CommandTargetProperty, BindingMode.OneWay);
+                Bind(source, target, nameof(ICommandSource.Command), ButtonBase.CommandProperty, BindingMode.OneWay);
+            }
+        }
+
+        if (source is System.Windows.Controls.Primitives.ToggleButton or System.Windows.Controls.MenuItem
+            && target is System.Windows.Controls.Primitives.ToggleButton) {
+            Bind(source, target, nameof(System.Windows.Controls.Primitives.ToggleButton.IsChecked), System.Windows.Controls.Primitives.ToggleButton.IsCheckedProperty, BindingMode.TwoWay);
+        }
+
+        if (source is ItemsControl sourceItemsControl
+            && target is ItemsControl targetItemsControl) {
+            Bind(source, target, nameof(ItemsControl.AlternationCount), ItemsControl.AlternationCountProperty, BindingMode.OneWay);
+
+            Bind(source, target, nameof(ItemsControl.DisplayMemberPath), ItemsControl.DisplayMemberPathProperty, BindingMode.OneWay);
+
+            Bind(source, target, nameof(ItemsControl.ItemBindingGroup), ItemsControl.ItemBindingGroupProperty, BindingMode.OneWay);
+            Bind(source, target, nameof(ItemsControl.ItemStringFormat), ItemsControl.ItemStringFormatProperty, BindingMode.OneWay);
+
+            Bind(source, target, nameof(ItemsControl.ItemTemplate), ItemsControl.ItemTemplateProperty, BindingMode.OneWay);
+            Bind(source, target, nameof(ItemsControl.ItemTemplateSelector), ItemsControl.ItemTemplateSelectorProperty, BindingMode.OneWay);
+
+            Bind(source, target, nameof(ItemsControl.ItemsPanel), ItemsControl.ItemsPanelProperty, BindingMode.OneWay);
+
+            Bind(source, target, nameof(ItemsControl.ItemContainerStyle), ItemsControl.ItemContainerStyleProperty, BindingMode.OneWay);
+            Bind(source, target, nameof(ItemsControl.ItemContainerStyleSelector), ItemsControl.ItemContainerStyleSelectorProperty, BindingMode.OneWay);
+
+            Bind(source, target, nameof(ItemsControl.GroupStyleSelector), ItemsControl.GroupStyleSelectorProperty, BindingMode.OneWay);
+
+            // cannot "bind" to GroupStyle observable collection property, but can at least keep them in sync
+            _ = new CollectionSyncHelper<GroupStyle>(sourceItemsControl.GroupStyle, targetItemsControl.GroupStyle);
+
+            if (source is Selector
+                && target is Selector) {
+                Bind(source, target, nameof(Selector.SelectedValuePath), Selector.SelectedValuePathProperty, BindingMode.OneWay);
+
+                Bind(source, target, nameof(Selector.IsSynchronizedWithCurrentItem), Selector.IsSynchronizedWithCurrentItemProperty, BindingMode.OneWay);
+            }
+        }
+
+        if (source is IHeaderedControl
+            && target is IHeaderedControl) {
+            Bind(source, target, nameof(IHeaderedControl.Header), HeaderProperty, BindingMode.OneWay);
+
+            // The header properties of HeaderedItemsControl are different from the ones of RibbonControl (and its derived/AddOwner types),
+            // so we can only use them if both, source and target, are a HeaderedItemsControl.
+            if (source is HeaderedItemsControl
+                && target is HeaderedItemsControl) {
+                Bind(source, target, nameof(HeaderedItemsControl.Header), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+                Bind(source, target, nameof(HeaderedItemsControl.HeaderStringFormat), HeaderedItemsControl.HeaderStringFormatProperty, BindingMode.OneWay);
+                Bind(source, target, nameof(HeaderedItemsControl.HeaderTemplate), HeaderedItemsControl.HeaderTemplateProperty, BindingMode.OneWay);
+                Bind(source, target, nameof(HeaderedItemsControl.HeaderTemplateSelector), HeaderedItemsControl.HeaderTemplateSelectorProperty, BindingMode.OneWay);
+            }
+
+            if (source.ToolTip is not null
+                || BindingOperations.IsDataBound(source, ToolTipProperty)) {
+                Bind(source, target, nameof(ToolTip), ToolTipProperty, BindingMode.OneWay);
+            } else {
+                Bind(source, target, nameof(IHeaderedControl.Header), ToolTipProperty, BindingMode.OneWay);
+            }
+        }
+
+        Bind(source, target, RibbonProperties.CustomIconSizeProperty, BindingMode.OneWay);
+
+        if (source is IRibbonControl sourceRibbonControl) {
+            if (sourceRibbonControl.Icon is Visual iconVisual) {
+                var rect = new Rectangle {
+                    Width = 16,
+                    Height = 16,
+                    Fill = new VisualBrush(iconVisual)
+                };
+                target.SetValue(IconProperty, rect);
+            } else {
+                Bind(source, target, nameof(IRibbonControl.Icon), IconProperty, BindingMode.OneWay);
+            }
+        }
+
+        if (source is IMediumIconProvider sourceMediummIconProvider) {
+            if (sourceMediummIconProvider.MediumIcon is Visual iconVisual) {
+                var rect = new Rectangle {
+                    Width = 24,
+                    Height = 24,
+                    Fill = new VisualBrush(iconVisual)
+                };
+                target.SetValue(MediumIconProviderProperties.MediumIconProperty, rect);
+            } else {
+                Bind(source, target, nameof(IMediumIconProvider.MediumIcon), MediumIconProviderProperties.MediumIconProperty, BindingMode.OneWay);
+            }
+        }
+
+        if (source is ILargeIconProvider sourceLargeIconProvider) {
+            if (sourceLargeIconProvider.LargeIcon is Visual iconVisual) {
+                var rect = new Rectangle {
+                    Width = 32,
+                    Height = 32,
+                    Fill = new VisualBrush(iconVisual)
+                };
+                target.SetValue(LargeIconProviderProperties.LargeIconProperty, rect);
+            } else {
+                Bind(source, target, nameof(ILargeIconProvider.LargeIcon), LargeIconProviderProperties.LargeIconProperty, BindingMode.OneWay);
+            }
+        }
+
+        Bind(source, target, new PropertyPath(RibbonProperties.QATIconSizeProperty), RibbonProperties.IconSizeProperty, BindingMode.OneWay);
+
+        RibbonProperties.SetSize(target, RibbonControlSize.Small);
+    }
+
+    /// <inheritdoc />
+    public bool CanAddToQuickAccessToolBar {
+        get => (bool)this.GetValue(CanAddToQuickAccessToolBarProperty);
+        set => this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value));
+    }
+
+    /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>
+    public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
+        DependencyProperty.Register(nameof(CanAddToQuickAccessToolBar), typeof(bool), typeof(RibbonControl), new PropertyMetadata(BooleanBoxes.TrueBox, OnCanAddToQuickAccessToolBarChanged));
+
+    /// <summary>
+    /// Occurs then CanAddToQuickAccessToolBar property changed
+    /// </summary>
+    public static void OnCanAddToQuickAccessToolBarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+        d.CoerceValue(ContextMenuProperty);
+    }
+
+    #endregion
+
+    #region Binding
+
+    internal static void Bind(object source, FrameworkElement target, DependencyProperty property, BindingMode mode) {
+        Bind(source, target, new PropertyPath(property), property, mode);
+    }
+
+    internal static void Bind(object source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode) {
+        Bind(source, target, new PropertyPath(path), property, mode);
+    }
+
+    internal static void Bind(object source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode, UpdateSourceTrigger updateSourceTrigger) {
+        Bind(source, target, new PropertyPath(path), property, mode, updateSourceTrigger);
+    }
+
+    internal static void Bind(object source, FrameworkElement target, PropertyPath path, DependencyProperty property, BindingMode mode) {
+        Bind(source, target, path, property, mode, UpdateSourceTrigger.Default);
+    }
+
+    internal static void Bind(object source, FrameworkElement target, PropertyPath path, DependencyProperty property, BindingMode mode, UpdateSourceTrigger updateSourceTrigger) {
+        var binding = new Binding {
+            Path = path,
+            Source = source,
+            Mode = mode,
+            UpdateSourceTrigger = updateSourceTrigger
+        };
+        target.SetBinding(property, binding);
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <inheritdoc />
+    public virtual KeyTipPressedResult OnKeyTipPressed() {
+        return KeyTipPressedResult.Empty;
+    }
+
+    /// <inheritdoc />
+    public virtual void OnKeyTipBack() {
+    }
+
+    #endregion
+
+    #region StaticMethods
+
+    /// <summary>
+    /// Returns screen workarea in witch control is placed
+    /// </summary>
+    /// <param name="control">Control</param>
+    /// <returns>Workarea in witch control is placed</returns>
+    public static unsafe Rect GetControlWorkArea(FrameworkElement control) {
+        if (PresentationSource.FromVisual(control) is null) {
+            return default;
+        }
+
+        var controlPosOnScreen = control.PointToScreen(new Point(0, 0));
+
+        var controlRect = new RECT {
+            left = (int)controlPosOnScreen.X,
+            top = (int)controlPosOnScreen.Y,
+            right = (int)controlPosOnScreen.X + (int)control.ActualWidth,
+            bottom = (int)controlPosOnScreen.Y + (int)control.ActualHeight
+        };
+        var monitor = PInvoke.MonitorFromRect(&controlRect, MONITOR_FROM_FLAGS.MONITOR_DEFAULTTONEAREST);
+        if (monitor != IntPtr.Zero) {
+            var monitorInfo = new MONITORINFO { cbSize = (uint)Marshal.SizeOf<MONITORINFO>() };
+            PInvoke.GetMonitorInfo(monitor, &monitorInfo);
+            return new Rect(monitorInfo.rcWork.left, monitorInfo.rcWork.top, monitorInfo.rcWork.right - monitorInfo.rcWork.left, monitorInfo.rcWork.bottom - monitorInfo.rcWork.top);
+        }
+
+        return default;
+    }
+
+    /// <summary>
+    /// Returns monitor in witch control is placed
+    /// </summary>
+    /// <param name="control">Control</param>
+    /// <returns>Workarea in witch control is placed</returns>
+    public static unsafe Rect GetControlMonitor(FrameworkElement control) {
+        if (PresentationSource.FromVisual(control) is null) {
+            return default;
+        }
+
+        var controlPosOnScreen = control.PointToScreen(new Point(0, 0));
+
+        var controlRect = new RECT {
+            left = (int)controlPosOnScreen.X,
+            top = (int)controlPosOnScreen.Y,
+            right = (int)controlPosOnScreen.X + (int)control.ActualWidth,
+            bottom = (int)controlPosOnScreen.Y + (int)control.ActualHeight
+        };
+        var monitor = PInvoke.MonitorFromRect(&controlRect, MONITOR_FROM_FLAGS.MONITOR_DEFAULTTONEAREST);
+        if (monitor != IntPtr.Zero) {
+            var monitorInfo = new MONITORINFO { cbSize = (uint)Marshal.SizeOf<MONITORINFO>() };
+            PInvoke.GetMonitorInfo(monitor, &monitorInfo);
+            return new Rect(monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.top, monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.bottom - monitorInfo.rcMonitor.top);
+        }
+
+        return default;
+    }
+
+    /// <summary>
+    /// Get the parent <see cref="Ribbon"/>.
+    /// </summary>
+    /// <returns>The found <see cref="Ribbon"/> or <c>null</c> of no parent <see cref="Ribbon"/> could be found.</returns>
+    public static Ribbon? GetParentRibbon(DependencyObject obj) {
+        return UIHelper.GetParent<Ribbon>(obj);
+    }
+
+    #endregion
+
+    /// <inheritdoc />
+    void ILogicalChildSupport.AddLogicalChild(object child) {
+        this.AddLogicalChild(child);
+    }
+
+    /// <inheritdoc />
+    void ILogicalChildSupport.RemoveLogicalChild(object child) {
+        this.RemoveLogicalChild(child);
+    }
+
+    /// <inheritdoc />
+    protected override IEnumerator LogicalChildren {
+        get {
+            var baseEnumerator = base.LogicalChildren;
+            while (baseEnumerator?.MoveNext() == true) {
+                yield return baseEnumerator.Current;
+            }
+
+            if (this.Icon is not null) {
+                yield return this.Icon;
+            }
+
+            if (this.Header is not null) {
+                yield return this.Header;
+            }
+        }
+    }
+
+    /// <inheritdoc />
+    protected override AutomationPeer OnCreateAutomationPeer() => new Modern.Automation.Peers.RibbonControlAutomationPeer(this);
+}

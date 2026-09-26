@@ -1,0 +1,332 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Modern="clr-namespace:Modern"
+                    xmlns:converters="clr-namespace:Modern.Converters">
+
+    <ControlTemplate x:Key="Modern.Ribbon.Templates.RibbonTabControl.DisplayOptionsButton"
+                     TargetType="{x:Type Modern:DropDownButton}">
+        <Border x:Name="PART_ButtonBorder"
+                Width="22"
+                Height="22"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                BorderThickness="1">
+            <Grid>
+                <Modern:IconPresenter x:Name="iconImage"
+                                      Margin="2"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
+                                      CustomSize="{Binding Path=(Modern:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Modern:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
+                <Popup x:Name="PART_Popup"
+                       Margin="0 0 -4 0"
+                       VerticalAlignment="Top"
+                       AllowsTransparency="True"
+                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                       Placement="Bottom"
+                       PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
+                    <Grid Name="DropDown"
+                          Margin="0"
+                          VerticalAlignment="Top"
+                          SnapsToDevicePixels="True">
+                        <Border x:Name="PART_DropDownBorder"
+                                MinWidth="{TemplateBinding ActualWidth}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top"
+                                Background="{DynamicResource Modern.Ribbon.Brushes.DropDown.Background}"
+                                BorderBrush="{DynamicResource Modern.Ribbon.Brushes.DropDown.Border}"
+                                BorderThickness="1"
+                                SnapsToDevicePixels="True">
+                            <Grid HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Top">
+                                <Border VerticalAlignment="Top"
+                                        BorderBrush="{DynamicResource Modern.Ribbon.Brushes.DropDown.Background}"
+                                        BorderThickness="1" />
+                                <Grid Margin="1"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Top">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <ScrollViewer x:Name="PART_ScrollViewer"
+                                                  Style="{DynamicResource Modern.Ribbon.Styles.MenuScrollViewer}"
+                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                                  Margin="1"
+                                                  HorizontalScrollBarVisibility="Disabled"
+                                                  VerticalScrollBarVisibility="Auto"
+                                                  IsTabStop="False"
+                                                  SnapsToDevicePixels="True">
+                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Local" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Popup>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsDropDownOpen" Value="True">
+                <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Modern.Ribbon.Brushes.Button.Pressed.Background}" />
+                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Modern.Ribbon.Brushes.Button.Pressed.Border}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True" />
+                    <Condition Property="IsDropDownOpen" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Modern.Ribbon.Brushes.Button.MouseOver.Background}" />
+                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Modern.Ribbon.Brushes.Button.MouseOver.Border}" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="Modern.Ribbon.Styles.RibbonTabControl.DisplayOptionsButton"
+           TargetType="{x:Type Modern:DropDownButton}">
+        <Setter Property="AutomationProperties.Name" Value="{Binding Uid, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="CanAddToQuickAccessToolBar" Value="False" />
+        <Setter Property="Foreground" Value="{DynamicResource Modern.Ribbon.Brushes.LabelText}" />
+        <Setter Property="Height" Value="22" />
+        <Setter Property="ResizeMode" Value="None" />
+        <Setter Property="Template" Value="{DynamicResource Modern.Ribbon.Templates.RibbonTabControl.DisplayOptionsButton}" />
+        <Setter Property="Uid" Value="{Binding Source={x:Static Modern:RibbonLocalization.Current}, Path=Localization.DisplayOptionsButtonScreenTipTitle, Mode=OneWay}" />
+        <Setter Property="Width" Value="22" />
+    </Style>
+
+    <ControlTemplate x:Key="Modern.Ribbon.Templates.MenuItem.HeaderOnly"
+                     TargetType="Modern:MenuItem">
+        <Grid Background="{TemplateBinding Background}">
+            <ContentPresenter x:Name="textBlock"
+                              Margin="5 3 3 3"
+                              VerticalAlignment="Center"
+                              ContentSource="Header"
+                              RecognizesAccessKey="{Binding Path=(Modern:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Key="Modern.Ribbon.Styles.RibbonTabControl"
+           TargetType="{x:Type Modern:RibbonTabControl}">
+        <Setter Property="Background" Value="{DynamicResource Modern.Ribbon.Brushes.RibbonTabControl.Background}" />
+        <Setter Property="CanMinimize" Value="{Binding CanMinimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:Ribbon}}, Mode=TwoWay}" />
+        <Setter Property="CanUseSimplified" Value="{Binding CanUseSimplified, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:Ribbon}}, Mode=TwoWay}" />
+        <Setter Property="ContentGapHeight" Value="{Binding ContentGapHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:Ribbon}}}" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Foreground" Value="{DynamicResource Modern.Ribbon.Brushes.RibbonTabControl.Foreground}" />
+        <Setter Property="IsMinimized" Value="{Binding IsMinimized, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:Ribbon}}, Mode=TwoWay}" />
+        <Setter Property="IsSimplified" Value="{Binding IsSimplified, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:Ribbon}}, Mode=TwoWay}" />
+        <Setter Property="Template" Value="{DynamicResource Modern.Ribbon.Templates.RibbonTabControl}" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+
+    <Modern:ScreenTip x:Key="Modern.Ribbon.ScreenTips.Resources.RibbonTabControl.DisplayOptionsScreenTip"
+                      Title="{Binding Source={x:Static Modern:RibbonLocalization.Current}, Path=Localization.DisplayOptionsButtonScreenTipTitle, Mode=OneWay}"
+                      x:Shared="False"
+                      Text="{Binding Source={x:Static Modern:RibbonLocalization.Current}, Path=Localization.DisplayOptionsButtonScreenTipText, Mode=OneWay}" />
+
+    <ControlTemplate x:Key="Modern.Ribbon.Templates.RibbonTabControl"
+                     TargetType="{x:Type Modern:RibbonTabControl}">
+        <Grid x:Name="ContentGrid"
+              VerticalAlignment="Top"
+              Background="{TemplateBinding Background}"
+              KeyboardNavigation.TabNavigation="Local">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition x:Name="contentRow"
+                               MinHeight="{TemplateBinding ContentHeight}"
+                               MaxHeight="{TemplateBinding ContentHeight}" />
+                <RowDefinition x:Name="contentGapRow"
+                               MinHeight="{TemplateBinding ContentGapHeight}"
+                               MaxHeight="{TemplateBinding ContentGapHeight}" />
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="TabsGrid"
+                  Grid.Row="0"
+                  Margin="0"
+                  HorizontalAlignment="Stretch"
+                  Background="{DynamicResource Modern.Ribbon.Brushes.RibbonTabControl.TabsGrid.Background}"
+                  KeyboardNavigation.TabIndex="1"
+                  TextElement.Foreground="{DynamicResource Modern.Ribbon.Brushes.RibbonTabControl.TabsGrid.Foreground}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Modern:WindowSteeringHelperControl Grid.ColumnSpan="4" />
+
+                <ContentPresenter Grid.Column="0"
+                                  VerticalAlignment="Stretch"
+                                  ContentSource="Menu" />
+
+                <Modern:RibbonScrollViewer Style="{DynamicResource Modern.Ribbon.Styles.RibbonTabScrollViewer}"
+                                           Grid.Column="1"
+                                           Margin="0"
+                                           HorizontalAlignment="Left"
+                                           HorizontalScrollBarVisibility="Auto"
+                                           VerticalScrollBarVisibility="Disabled"
+                                           IsHitTestVisible="True"
+                                           IsTabStop="False"
+                                           Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}">
+                    <Modern:RibbonTabsContainer x:Name="PART_TabsContainer"
+                                                HorizontalAlignment="Stretch"
+                                                IsItemsHost="True"
+                                                KeyboardNavigation.TabIndex="1" />
+                </Modern:RibbonScrollViewer>
+
+                <StackPanel Grid.Column="3"
+                            Margin="0"
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal">
+                    <StackPanel x:Name="PART_ToolbarPanel"
+                                Orientation="Horizontal"
+                                Visibility="{Binding IsToolBarVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}" />
+
+                    <Modern:DropDownButton x:Name="PART_DisplayOptionsButton"
+                                           Style="{DynamicResource Modern.Ribbon.Styles.RibbonTabControl.DisplayOptionsButton}"
+                                           Width="22"
+                                           Height="22"
+                                           Margin="0"
+                                           Icon="{DynamicResource Modern.Ribbon.Images.RibbonDisplayOptions}"
+                                           Size="Small"
+                                           ToolTip="{DynamicResource Modern.Ribbon.ScreenTips.Resources.RibbonTabControl.DisplayOptionsScreenTip}"
+                                           Visibility="{Binding IsDisplayOptionsButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}">
+                        <Modern:MenuItem Header="{Binding Source={x:Static Modern:RibbonLocalization.Current}, Path=Localization.ShowRibbon, Mode=OneWay}"
+                                         Foreground="{DynamicResource Modern.Ribbon.Brushes.Black}"
+                                         FontWeight="Bold"
+                                         IsEnabled="False"
+                                         Template="{DynamicResource Modern.Ribbon.Templates.MenuItem.HeaderOnly}"
+                                         Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}"
+                                         Opacity="1" />
+                        <Modern:MenuItem Header="{Binding Source={x:Static Modern:RibbonLocalization.Current}, Path=Localization.ExpandRibbon, Mode=OneWay}"
+                                         IsCheckable="True"
+                                         IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:StaticConverters.InverseBoolConverter}}"
+                                         Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <Modern:MenuItem Header="{Binding Source={x:Static Modern:RibbonLocalization.Current}, Path=Localization.MinimizeRibbon, Mode=OneWay}"
+                                         IsCheckable="True"
+                                         IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource TemplatedParent}}"
+                                         Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <Separator x:Name="DisplayOptionsButtonMenuSeparator"
+                                   Style="{x:Null}"
+                                   Visibility="Collapsed" />
+                        <Modern:MenuItem Header="{Binding Source={x:Static Modern:RibbonLocalization.Current}, Path=Localization.RibbonLayout, Mode=OneWay}"
+                                         Foreground="{DynamicResource Modern.Ribbon.Brushes.Black}"
+                                         FontWeight="Bold"
+                                         IsEnabled="False"
+                                         Template="{DynamicResource Modern.Ribbon.Templates.MenuItem.HeaderOnly}"
+                                         Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}"
+                                         Opacity="1" />
+                        <Modern:MenuItem Header="{Binding Source={x:Static Modern:RibbonLocalization.Current}, Path=Localization.UseClassicRibbon, Mode=OneWay}"
+                                         IsCheckable="True"
+                                         IsChecked="{Binding IsSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:StaticConverters.InverseBoolConverter}}"
+                                         Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <Modern:MenuItem Header="{Binding Source={x:Static Modern:RibbonLocalization.Current}, Path=Localization.UseSimplifiedRibbon, Mode=OneWay}"
+                                         IsCheckable="True"
+                                         IsChecked="{Binding IsSimplified, RelativeSource={RelativeSource TemplatedParent}}"
+                                         Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                    </Modern:DropDownButton>
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1"
+                    Margin="{DynamicResource Modern.Ribbon.Values.RibbonTabControl.Content.Margin}"
+                    HorizontalAlignment="Stretch"
+                    Background="{DynamicResource Modern.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                    BorderBrush="{DynamicResource Modern.Ribbon.Brushes.RibbonTabControl.Content.Border}"
+                    BorderThickness="{DynamicResource Modern.Ribbon.Values.RibbonTabControl.Content.BorderThickness}"
+                    CornerRadius="{DynamicResource Modern.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
+                    KeyboardNavigation.DirectionalNavigation="Contained"
+                    KeyboardNavigation.TabIndex="2"
+                    KeyboardNavigation.TabNavigation="Local"
+                    TextElement.Foreground="{DynamicResource Modern.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
+                <Grid>
+                    <!-- We must use a dedicated border to prevent the effect from affecting font rendering... -->
+                    <Border Background="{DynamicResource Modern.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                            BorderBrush="{DynamicResource Modern.Ribbon.Brushes.RibbonTabControl.Content.Border}"
+                            BorderThickness="0"
+                            CornerRadius="{DynamicResource Modern.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
+                            Effect="{DynamicResource Modern.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}" />
+
+                    <ContentControl x:Name="mainContentControl"
+                                    Margin="0"
+                                    Focusable="False">
+                        <Modern:TransitioningControl x:Name="PART_SelectedContent"
+                                                     HorizontalAlignment="Stretch"
+                                                     VerticalAlignment="Stretch"
+                                                     HorizontalContentAlignment="Stretch"
+                                                     VerticalContentAlignment="Stretch"
+                                                     NextContent="{Binding SelectedContent, RelativeSource={RelativeSource TemplatedParent}}"
+                                                     TransitionStoryboard="{DynamicResource Modern.Ribbon.Storyboards.RibbonTabControl.Content.Transition}" />
+                    </ContentControl>
+                </Grid>
+            </Border>
+
+            <!-- Placement target must be the selected item. Otherwise things like DPI and monitor are selected wrong if the tabcontrol 0,0 is on a different screen than the selected tabs 0,0 -->
+            <Popup x:Name="PART_Popup"
+                   AllowsTransparency="True"
+                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                   Placement="Custom"
+                   PlacementTarget="{Binding Path=SelectedTabItem, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                   PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="{x:Static Modern:RibbonTabControl.AdditionalPopupSpaceForKeyTipsGridLength}" />
+                        <!-- Needed for overlapping Keytips -->
+                        <RowDefinition MinHeight="{TemplateBinding ContentHeight}"
+                                       MaxHeight="{TemplateBinding ContentHeight}" />
+                        <RowDefinition Height="{x:Static Modern:RibbonTabControl.AdditionalPopupSpaceForKeyTipsGridLength}" />
+                        <!-- Needed for overlapping Keytips -->
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <!-- We must use a dedicated border to prevent the effect from affecting font rendering... -->
+                        <Border Margin="{DynamicResource Modern.Ribbon.Values.RibbonTabControl.Content.Margin}"
+                                Background="{DynamicResource Modern.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                                BorderBrush="{DynamicResource Modern.Ribbon.Brushes.RibbonTabControl.Content.Border}"
+                                BorderThickness="0"
+                                CornerRadius="{DynamicResource Modern.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
+                                Effect="{DynamicResource Modern.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}" />
+
+                        <Border Margin="{DynamicResource Modern.Ribbon.Values.RibbonTabControl.Content.Margin}"
+                                Background="{DynamicResource Modern.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                                BorderThickness="{DynamicResource Modern.Ribbon.Values.RibbonTabControl.Content.BorderThickness}"
+                                CornerRadius="{DynamicResource Modern.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
+                                KeyboardNavigation.DirectionalNavigation="Contained"
+                                KeyboardNavigation.TabNavigation="Local"
+                                TextElement.Foreground="{DynamicResource Modern.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
+                            <ContentControl x:Name="popupContentControl"
+                                            Margin="0"
+                                            Focusable="False" />
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Popup>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMinimized" Value="True">
+                <Setter TargetName="contentGapRow" Property="MinHeight" Value="0" />
+                <Setter TargetName="contentRow" Property="MinHeight" Value="0" />
+                <!-- Switch content to popup -->
+                <Setter TargetName="mainContentControl" Property="Content" Value="{x:Null}" />
+                <Setter TargetName="popupContentControl" Property="Content" Value="{Binding ElementName=PART_SelectedContent, Mode=OneWay}" />
+                <!-- Switch content to popup END -->
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="CanMinimize" Value="False" />
+                    <Condition Property="CanUseSimplified" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_DisplayOptionsButton" Property="Visibility" Value="Collapsed" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="CanMinimize" Value="True" />
+                    <Condition Property="CanUseSimplified" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="DisplayOptionsButtonMenuSeparator" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+</ResourceDictionary>

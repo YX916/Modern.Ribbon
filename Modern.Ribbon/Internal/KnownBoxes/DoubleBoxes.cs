@@ -1,4 +1,5 @@
 namespace Modern.Internal.KnownBoxes;
+
 /// <summary>
 /// Class containing boxed values for <see cref="double"/>.
 /// </summary>

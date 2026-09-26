@@ -1,12 +1,16 @@
-using ControlzEx.Native;
+namespace Modern.Helpers;
+
+using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using ControlzEx.Native;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 
-namespace Modern.Helpers;
-
+/// <summary>
+/// Class which offers helper methods for steering the window
+/// </summary>
 public static class WindowSteeringHelper {
     /// <summary>
     /// Shows the system menu at the current mouse position.

@@ -1,8 +1,92 @@
-<MD:RibbonWindow x:Class="Modern.Ribbon.Simple.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:MD="clr-namespace:Modern;assembly=Modern.Ribbon" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:Modern.Ribbon.Simple"
-                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Title="MainWindow" Width="800"
-                 Height="450" Icon="/application.ico" mc:Ignorable="d">
+<MD:RibbonWindow x:Class="Modern.Ribbon.Simple.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:MD="clr-namespace:Modern;assembly=Modern.Ribbon"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:local="clr-namespace:Modern.Ribbon.Simple"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 Title="MainWindow"
+                 Width="800"
+                 Height="450"
+                 Icon="/application.ico"
+                 ResizeMode="CanResizeWithGrip"
+                 mc:Ignorable="d">
     <Grid>
-        <TextBlock Foreground="White" Text="内容" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <MD:Ribbon Grid.Row="0"
+                   AutomaticStateManagement="True"
+                   CanUseSimplified="True">
+            <MD:Ribbon.ContextualGroups>
+                <MD:RibbonContextualTabGroup  x:Name="tabGroup1"
+                                              Header="First"
+                                              Background="{DynamicResource Modern.Ribbon.Brushes.AccentBase}"
+                                              Foreground="{DynamicResource Modern.Ribbon.Brushes.Black}"
+                                              BorderBrush="{DynamicResource Modern.Ribbon.Brushes.AccentBase}"
+                                              TabItemMouseOverForeground="Red"
+                                              TabItemSelectedForeground="{DynamicResource Modern.Ribbon.Brushes.RibbonTabItem.Foreground}"
+                                              TabItemSelectedMouseOverForeground="OrangeRed"
+                                              Visibility="Visible"/>
+            </MD:Ribbon.ContextualGroups>
+            <!--Quick Access Toolbar Items-->
+            <MD:Ribbon.QuickAccessItems>
+                <!--Use Content or Target Property to set QAT item-->
+                <MD:QuickAccessMenuItem IsChecked="true">
+                    <MD:Button Header="Pink"
+                               Icon="/application.ico" />
+                </MD:QuickAccessMenuItem>
+            </MD:Ribbon.QuickAccessItems>
+            <!--Backstage-->
+            <MD:Ribbon.Menu>
+                <MD:Backstage Header="文件">
+                    <MD:BackstageTabControl>
+                        <MD:BackstageTabItem Header="New" />
+                        <MD:BackstageTabItem Header="Print" />
+                        <MD:Button Header="Blue"/>
+                    </MD:BackstageTabControl>
+                </MD:Backstage>
+            </MD:Ribbon.Menu>
+
+            <!--Tabs-->
+            <MD:RibbonTabItem Header="Home">
+                <MD:RibbonGroupBox Header="Group">
+                    <MD:Button Header="Green"
+                               Icon="/application.ico"
+                               LargeIcon="/application.ico" />
+                    <MD:Button Header="Grey"
+                               Icon="/application.ico"
+                               LargeIcon="/application.ico" />
+                </MD:RibbonGroupBox>
+            </MD:RibbonTabItem>
+            <MD:RibbonTabItem Header="Home">
+                <MD:RibbonGroupBox Header="Group">
+                    <MD:Button Header="Green"
+                               Icon="/application.ico"
+                               LargeIcon="/application.ico" />
+                    <MD:Button Header="Grey"
+                               Icon="/application.ico"
+                               LargeIcon="/application.ico" />
+                </MD:RibbonGroupBox>
+            </MD:RibbonTabItem>
+            <MD:RibbonTabItem Header="Home"
+                              Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
+                <MD:RibbonGroupBox Header="Group">
+                    <MD:Button Header="Green"
+                               Icon="/application.ico"
+                               LargeIcon="/application.ico" />
+                    <MD:Button Header="Grey"
+                               Icon="/application.ico"
+                               LargeIcon="/application.ico" />
+                </MD:RibbonGroupBox>
+            </MD:RibbonTabItem>
+            
+        </MD:Ribbon>
+
+        <Grid Grid.Row="1">
+            <TextBlock>My first window containing a Ribbon and something else.</TextBlock>
+        </Grid>
     </Grid>
 </MD:RibbonWindow>

@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Modern="clr-namespace:Modern"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
+    <Style x:Key="Modern.Ribbon.Styles.RibbonToolBarControlGroup"
+           TargetType="{x:Type Modern:RibbonToolBarControlGroup}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template" Value="{DynamicResource Modern.Ribbon.Templates.RibbonToolBarControlGroup}" />
+    </Style>
+
+    <ControlTemplate x:Key="Modern.Ribbon.Templates.RibbonToolBarControlGroup"
+                     TargetType="{x:Type Modern:RibbonToolBarControlGroup}">
+        <StackPanel Orientation="Horizontal">
+            <Separator x:Name="separatorLeft"
+                       Style="{DynamicResource Modern.Ribbon.Styles.RibbonSeparator}"
+                       Visibility="Collapsed" />
+            <StackPanel IsItemsHost="true"
+                        Orientation="Horizontal" />
+            <Separator x:Name="separatorRight"
+                       Style="{DynamicResource Modern.Ribbon.Styles.RibbonSeparator}"
+                       Visibility="Collapsed" />
+        </StackPanel>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsLastInRow" Value="False">
+                <Setter TargetName="separatorRight" Property="Visibility" Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+</ResourceDictionary>

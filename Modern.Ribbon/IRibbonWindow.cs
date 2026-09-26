@@ -1,10 +1,11 @@
-
 namespace Modern;
 
+/// <summary>
+/// Meant to support interop scenarios
+/// </summary>
 public interface IRibbonWindow {
     /// <summary>
-    /// 获取Titlebar
+    /// Gets the titlebar
     /// </summary>
     RibbonTitleBar? TitleBar { get; }
 }
-

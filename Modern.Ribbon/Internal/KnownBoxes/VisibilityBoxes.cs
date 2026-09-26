@@ -1,7 +1,11 @@
-using System.Windows;
-
 namespace Modern.Internal.KnownBoxes;
 
+using System;
+using System.Windows;
+
+/// <summary>
+/// Class containing boxed values for <see cref="Visibility"/>.
+/// </summary>
 internal static class VisibilityBoxes {
     /// <summary>
     /// Gets a boxed value for <see cref="Visibility.Visible"/>.
