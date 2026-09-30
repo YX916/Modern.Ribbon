@@ -2215,21 +2215,25 @@ Themes\Controls\WindowCommands.xaml
     </ControlTemplate.Triggers>
   </ControlTemplate>
   <ControlTemplate x:Key="Modern.Ribbon.Templates.RibbonWindow" TargetType="{x:Type Modern:RibbonWindow}">
-    <Grid Margin="{TemplateBinding Margin}" LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}" RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}">
-      <AdornerDecorator x:Name="Adorner">
-        <Grid Background="{TemplateBinding Background}">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-          </Grid.RowDefinitions>
-          <DockPanel Grid.Row="0" Height="{TemplateBinding TitleBarHeight}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="{TemplateBinding TitleBackground}" LastChildFill="True">
-            <Image x:Name="PART_Icon" Width="16" Height="16" Margin="8 8 0 0" VerticalAlignment="{TemplateBinding VerticalIconAlignment}" DockPanel.Dock="Left" SnapsToDevicePixels="True" Source="{Modern:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}},                                                              {Binding RelativeSource={RelativeSource Self}}}" Stretch="Uniform" Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}" />
-            <ContentPresenter x:Name="PART_WindowCommands" Grid.Row="0" HorizontalAlignment="Right" Panel.ZIndex="1" Content="{TemplateBinding WindowCommands}" DockPanel.Dock="Right" />
-            <Modern:RibbonTitleBar x:Name="PART_RibbonTitleBar" Header="{TemplateBinding Title}" VerticalAlignment="Stretch" Foreground="{TemplateBinding TitleForeground}" IsCollapsed="{TemplateBinding IsCollapsed}" />
-          </DockPanel>
-          <ContentPresenter x:Name="PART_ContentPresenter" Grid.Row="1" />
-        </Grid>
-      </AdornerDecorator>
+    <Grid LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}" RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}">
+      <!-- 底层：内容容器，负责Padding内边距，承载全部UI -->
+      <Border x:Name="PART_ContentHost" Padding="2,2,2,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{TemplateBinding Background}" UseLayoutRounding="True">
+        <AdornerDecorator x:Name="Adorner">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" Height="{TemplateBinding TitleBarHeight}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="{TemplateBinding TitleBackground}" LastChildFill="True">
+              <Image x:Name="PART_Icon" Width="16" Height="16" Margin="8 8 0 0" VerticalAlignment="{TemplateBinding VerticalIconAlignment}" DockPanel.Dock="Left" SnapsToDevicePixels="True" Source="{Modern:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}},                                                                  {Binding RelativeSource={RelativeSource Self}}}" Stretch="Uniform" Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}" />
+              <ContentPresenter x:Name="PART_WindowCommands" Grid.Row="0" HorizontalAlignment="Right" Panel.ZIndex="1" Content="{TemplateBinding WindowCommands}" DockPanel.Dock="Right" />
+              <Modern:RibbonTitleBar x:Name="PART_RibbonTitleBar" Header="{TemplateBinding Title}" VerticalAlignment="Stretch" Foreground="{TemplateBinding TitleForeground}" IsCollapsed="{TemplateBinding IsCollapsed}" />
+            </DockPanel>
+            <ContentPresenter x:Name="PART_ContentPresenter" Grid.Row="1" />
+          </Grid>
+        </AdornerDecorator>
+      </Border>
+      <!-- 顶层装饰边框，保持原有逻辑：盖在内容最上方，只画边框，背景透明 -->
       <Border x:Name="PART_Border" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" BorderThickness="{TemplateBinding BorderThickness}" UseLayoutRounding="True" />
       <ResizeGrip x:Name="WindowResizeGrip" HorizontalAlignment="Right" VerticalAlignment="Bottom" controlzex:WindowChrome.ResizeGripDirection="BottomRight" IsTabStop="false" Visibility="Collapsed" />
     </Grid>
@@ -2249,8 +2253,9 @@ Themes\Controls\WindowCommands.xaml
         <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible" />
       </MultiTrigger>
       <Trigger Property="WindowState" Value="Maximized">
-        <Setter Property="Margin" Value="0" />
-        <Setter TargetName="Adorner" Property="Margin" Value="0" />
+        <!-- 最大化：清除内容容器Padding，内容撑满窗口 -->
+        <Setter TargetName="PART_ContentHost" Property="Padding" Value="0" />
+        <!-- 只隐藏顶层边框和ResizeGrip，内容容器PART_ContentHost保留显示！ -->
         <Setter TargetName="PART_Border" Property="Visibility" Value="Collapsed" />
         <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Collapsed" />
       </Trigger>
@@ -2260,12 +2265,10 @@ Themes\Controls\WindowCommands.xaml
     <Setter Property="Background" Value="{DynamicResource Modern.Ribbon.Brushes.RibbonWindow.Background}" />
     <Setter Property="BorderBrush" Value="{DynamicResource Modern.Ribbon.Brushes.AccentBase}" />
     <Setter Property="BorderThickness" Value="0" />
-    <!-- make the native caption transparent by default -->
     <Setter Property="CaptionColor" Value="Transparent" />
     <Setter Property="Foreground" Value="{DynamicResource Modern.Ribbon.Brushes.Black}" />
     <Setter Property="GlowColor" Value="{DynamicResource Modern.Ribbon.Colors.AccentBase}" />
-    <!-- Window Margin -->
-    <Setter Property="Margin" Value="2 2 2 0" />
+    <!-- 彻底移除Window级别Margin，根除黑边来源 -->
     <Setter Property="NonActiveBorderBrush" Value="#434346" />
     <Setter Property="NonActiveGlowColor" Value="#434346" />
     <Setter Property="Template" Value="{StaticResource Modern.Ribbon.Templates.RibbonWindow}" />
@@ -3289,7 +3292,7 @@ Themes\Controls\WindowCommands.xaml
       <Button x:Name="PART_Restore" Uid="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:WindowCommands}}}" Style="{DynamicResource Modern.Ribbon.Styles.WindowCommands.CaptionButton}" Padding="0" controlzex:NonClientControlProperties.ClickStrategy="MouseEvent" controlzex:NonClientControlProperties.HitTestResult="MAXBUTTON" AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}" Focusable="False" SnapsToDevicePixels="True" ToolTip="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:WindowCommands}}}" Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Maximized}}">
         <Path Width="16" Height="16" HorizontalAlignment="Center" VerticalAlignment="Center" Data="F1M11.999,10.002L10.998,10.002 10.998,5.002 5.998,5.002 5.998,4.001 11.999,4.001z M10.002,11.999L4.001,11.999 4.001,5.998 10.002,5.998z M5.002,3L5.002,5.002 3,5.002 3,13 10.998,13 10.998,10.998 13,10.998 13,3z" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
       </Button>
-      <Button x:Name="PART_Close" Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:WindowCommands}}}" Style="{DynamicResource Modern.Ribbon.Styles.WindowCommands.CaptionButton}" Padding="0" Modern:RibbonProperties.MouseOverBackground="{DynamicResource Modern.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background}" Modern:RibbonProperties.PressedBackground="{DynamicResource Modern.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background}" Modern:RibbonProperties.MouseOverForeground="{DynamicResource Modern.Ribbon.Colors.White}" controlzex:NonClientControlProperties.ClickStrategy="MouseEvent" controlzex:NonClientControlProperties.HitTestResult="CLOSE" AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}" Focusable="False" SnapsToDevicePixels="True" ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:WindowCommands}}}">
+      <Button x:Name="PART_Close" Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:WindowCommands}}}" Style="{DynamicResource Modern.Ribbon.Styles.WindowCommands.CaptionButton}" Padding="0" Modern:RibbonProperties.MouseOverBackground="{DynamicResource Modern.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background}" Modern:RibbonProperties.PressedBackground="{DynamicResource Modern.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background}" controlzex:NonClientControlProperties.ClickStrategy="MouseEvent" controlzex:NonClientControlProperties.HitTestResult="CLOSE" AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}" Focusable="False" SnapsToDevicePixels="True" ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:WindowCommands}}}">
         <Path Width="16" Height="16" HorizontalAlignment="Center" VerticalAlignment="Center" Data="F1M8.583,8L13,12.424 12.424,13 8,8.583 3.576,13 3,12.424 7.417,8 3,3.576 3.576,3 8,7.417 12.424,3 13,3.576z" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
       </Button>
     </StackPanel>

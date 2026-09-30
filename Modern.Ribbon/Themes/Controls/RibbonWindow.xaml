@@ -5,56 +5,63 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-
     <ControlTemplate x:Key="Modern.Ribbon.Templates.RibbonWindow"
                      TargetType="{x:Type Modern:RibbonWindow}">
-        <Grid Margin="{TemplateBinding Margin}"
-              LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
+        <Grid LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
               RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}">
-            <AdornerDecorator x:Name="Adorner">
-                <Grid Background="{TemplateBinding Background}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+            <!-- 底层：内容容器，负责Padding内边距，承载全部UI -->
+            <Border x:Name="PART_ContentHost"
+                    Padding="2,2,2,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="{TemplateBinding Background}"
+                    UseLayoutRounding="True">
+                <AdornerDecorator x:Name="Adorner">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                    <DockPanel Grid.Row="0"
-                               Height="{TemplateBinding TitleBarHeight}"
-                               HorizontalAlignment="Stretch"
-                               VerticalAlignment="Top"
-                               Background="{TemplateBinding TitleBackground}"
-                               LastChildFill="True">
-                        <Image x:Name="PART_Icon"
-                               Width="16"
-                               Height="16"
-                               Margin="8 8 0 0"
-                               VerticalAlignment="{TemplateBinding VerticalIconAlignment}"
-                               DockPanel.Dock="Left"
-                               SnapsToDevicePixels="True"
-                               Source="{Modern:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}},
-                                                             {Binding RelativeSource={RelativeSource Self}}}"
-                               Stretch="Uniform"
-                               Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <DockPanel Grid.Row="0"
+                                   Height="{TemplateBinding TitleBarHeight}"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Top"
+                                   Background="{TemplateBinding TitleBackground}"
+                                   LastChildFill="True">
+                            <Image x:Name="PART_Icon"
+                                   Width="16"
+                                   Height="16"
+                                   Margin="8 8 0 0"
+                                   VerticalAlignment="{TemplateBinding VerticalIconAlignment}"
+                                   DockPanel.Dock="Left"
+                                   SnapsToDevicePixels="True"
+                                   Source="{Modern:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}},
+                                                                 {Binding RelativeSource={RelativeSource Self}}}"
+                                   Stretch="Uniform"
+                                   Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
-                        <ContentPresenter x:Name="PART_WindowCommands"
-                                          Grid.Row="0"
-                                          HorizontalAlignment="Right"
-                                          Panel.ZIndex="1"
-                                          Content="{TemplateBinding WindowCommands}"
-                                          DockPanel.Dock="Right" />
+                            <ContentPresenter x:Name="PART_WindowCommands"
+                                              Grid.Row="0"
+                                              HorizontalAlignment="Right"
+                                              Panel.ZIndex="1"
+                                              Content="{TemplateBinding WindowCommands}"
+                                              DockPanel.Dock="Right" />
 
-                        <Modern:RibbonTitleBar x:Name="PART_RibbonTitleBar"
-                                               Header="{TemplateBinding Title}"
-                                               VerticalAlignment="Stretch"
-                                               Foreground="{TemplateBinding TitleForeground}"
-                                               IsCollapsed="{TemplateBinding IsCollapsed}" />
-                    </DockPanel>
+                            <Modern:RibbonTitleBar x:Name="PART_RibbonTitleBar"
+                                                  Header="{TemplateBinding Title}"
+                                                  VerticalAlignment="Stretch"
+                                                  Foreground="{TemplateBinding TitleForeground}"
+                                                  IsCollapsed="{TemplateBinding IsCollapsed}" />
+                        </DockPanel>
 
-                    <ContentPresenter x:Name="PART_ContentPresenter"
-                                      Grid.Row="1" />
-                </Grid>
-            </AdornerDecorator>
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                          Grid.Row="1" />
+                    </Grid>
+                </AdornerDecorator>
+            </Border>
 
+            <!-- 顶层装饰边框，保持原有逻辑：盖在内容最上方，只画边框，背景透明 -->
             <Border x:Name="PART_Border"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
@@ -63,11 +70,11 @@
                     UseLayoutRounding="True" />
 
             <ResizeGrip x:Name="WindowResizeGrip"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        controlzex:WindowChrome.ResizeGripDirection="BottomRight"
-                        IsTabStop="false"
-                        Visibility="Collapsed" />
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom"
+                       controlzex:WindowChrome.ResizeGripDirection="BottomRight"
+                       IsTabStop="false"
+                       Visibility="Collapsed" />
         </Grid>
 
         <ControlTemplate.Triggers>
@@ -86,8 +93,9 @@
                 <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible" />
             </MultiTrigger>
             <Trigger Property="WindowState" Value="Maximized">
-                <Setter Property="Margin" Value="0" />
-                <Setter TargetName="Adorner" Property="Margin" Value="0" />
+                <!-- 最大化：清除内容容器Padding，内容撑满窗口 -->
+                <Setter TargetName="PART_ContentHost" Property="Padding" Value="0" />
+                <!-- 只隐藏顶层边框和ResizeGrip，内容容器PART_ContentHost保留显示！ -->
                 <Setter TargetName="PART_Border" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Collapsed" />
             </Trigger>
@@ -99,12 +107,10 @@
         <Setter Property="Background" Value="{DynamicResource Modern.Ribbon.Brushes.RibbonWindow.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Modern.Ribbon.Brushes.AccentBase}" />
         <Setter Property="BorderThickness" Value="0" />
-        <!-- make the native caption transparent by default -->
         <Setter Property="CaptionColor" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource Modern.Ribbon.Brushes.Black}" />
         <Setter Property="GlowColor" Value="{DynamicResource Modern.Ribbon.Colors.AccentBase}" />
-        <!-- Window Margin -->
-        <Setter Property="Margin" Value="2 2 2 0" />
+        <!-- 彻底移除Window级别Margin，根除黑边来源 -->
         <Setter Property="NonActiveBorderBrush" Value="#434346" />
         <Setter Property="NonActiveGlowColor" Value="#434346" />
         <Setter Property="Template" Value="{StaticResource Modern.Ribbon.Templates.RibbonWindow}" />
