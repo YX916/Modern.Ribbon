@@ -2217,7 +2217,7 @@ Themes\Controls\WindowCommands.xaml
   <ControlTemplate x:Key="Modern.Ribbon.Templates.RibbonWindow" TargetType="{x:Type Modern:RibbonWindow}">
     <Grid LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}" RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}">
       <!-- 底层：内容容器，负责Padding内边距，承载全部UI -->
-      <Border x:Name="PART_ContentHost" Padding="2,2,2,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{TemplateBinding Background}" UseLayoutRounding="True">
+      <Border x:Name="PART_ContentHost" Padding="{TemplateBinding ContentPadding}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{TemplateBinding Background}" UseLayoutRounding="True">
         <AdornerDecorator x:Name="Adorner">
           <Grid>
             <Grid.RowDefinitions>

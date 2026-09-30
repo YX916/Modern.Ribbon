@@ -94,6 +94,21 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow {
         get => (WindowCommands?)this.GetValue(WindowCommandsProperty);
         set => this.SetValue(WindowCommandsProperty, value);
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Thickness ContentPadding {
+        get => (Thickness)GetValue(ContentPaddingProperty);
+        set => SetValue(ContentPaddingProperty, value);
+    }
+    public static readonly DependencyProperty ContentPaddingProperty =
+    DependencyProperty.Register(
+        nameof(ContentPadding),
+        typeof(Thickness),
+        typeof(RibbonWindow),
+        new FrameworkPropertyMetadata(new Thickness(2, 2, 2, 0)));
+
+
 
     #region Window-Border-Properties
 
@@ -186,7 +201,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow {
             this.SetCurrentValue(IsIconVisibleProperty, BooleanBoxes.FalseBox);
             this.TitleBar?.SetCurrentValue(VisibilityProperty, VisibilityBoxes.Collapsed);
             this.WindowCommands?.SetCurrentValue(WindowCommands.ItemsPanelVisibilityProperty, VisibilityBoxes.Collapsed);
-        } else {
+        }
+        else {
             this.InvalidateProperty(IsIconVisibleProperty);
             this.iconImage?.SetCurrentValue(RibbonProperties.LastVisibleWidthProperty, this.iconImage.ActualWidth);
 
@@ -226,7 +242,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow {
         if (this.ActualWidth < Ribbon.MinimalVisibleWidth
             || this.ActualHeight < Ribbon.MinimalVisibleHeight) {
             this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.TrueBox);
-        } else {
+        }
+        else {
             this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.FalseBox);
         }
     }
@@ -274,7 +291,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow {
                     e.Handled = true;
 
                     WindowSteeringHelper.ShowSystemMenu(this, this.PointToScreen(new Point(0, this.TitleBarHeight)));
-                } else if (e.ClickCount == 2) {
+                }
+                else if (e.ClickCount == 2) {
                     e.Handled = true;
 
 #pragma warning disable 618
