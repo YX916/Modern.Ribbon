@@ -8,7 +8,7 @@
 
     <ControlTemplate x:Key="Modern.Ribbon.Templates.RibbonWindow"
                      TargetType="{x:Type Modern:RibbonWindow}">
-        <Grid Margin="{TemplateBinding Padding}"
+        <Grid Margin="{TemplateBinding Margin}"
               LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
               RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}">
             <AdornerDecorator x:Name="Adorner">
@@ -45,9 +45,9 @@
 
                         <Modern:RibbonTitleBar x:Name="PART_RibbonTitleBar"
                                                Header="{TemplateBinding Title}"
+                                               VerticalAlignment="Stretch"
                                                Foreground="{TemplateBinding TitleForeground}"
-                                               IsCollapsed="{TemplateBinding IsCollapsed}"
-                                               VerticalAlignment="Stretch"/>
+                                               IsCollapsed="{TemplateBinding IsCollapsed}" />
                     </DockPanel>
 
                     <ContentPresenter x:Name="PART_ContentPresenter"
@@ -86,10 +86,9 @@
                 <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible" />
             </MultiTrigger>
             <Trigger Property="WindowState" Value="Maximized">
+                <Setter Property="Margin" Value="0" />
                 <Setter TargetName="Adorner" Property="Margin" Value="0" />
-                <Setter TargetName="PART_Border"
-                        Property="Visibility"
-                        Value="Collapsed" />
+                <Setter TargetName="PART_Border" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Collapsed" />
             </Trigger>
         </ControlTemplate.Triggers>
@@ -97,8 +96,6 @@
 
     <Style x:Key="Modern.Ribbon.Styles.RibbonWindow"
            TargetType="{x:Type Modern:RibbonWindow}">
-        <Setter Property="Template"
-                Value="{StaticResource Modern.Ribbon.Templates.RibbonWindow}" />
         <Setter Property="Background" Value="{DynamicResource Modern.Ribbon.Brushes.RibbonWindow.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Modern.Ribbon.Brushes.AccentBase}" />
         <Setter Property="BorderThickness" Value="0" />
@@ -106,8 +103,11 @@
         <Setter Property="CaptionColor" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource Modern.Ribbon.Brushes.Black}" />
         <Setter Property="GlowColor" Value="{DynamicResource Modern.Ribbon.Colors.AccentBase}" />
+        <!-- Window Margin -->
+        <Setter Property="Margin" Value="2 2 2 0" />
         <Setter Property="NonActiveBorderBrush" Value="#434346" />
         <Setter Property="NonActiveGlowColor" Value="#434346" />
+        <Setter Property="Template" Value="{StaticResource Modern.Ribbon.Templates.RibbonWindow}" />
         <Setter Property="TitleBackground" Value="{DynamicResource Modern.Ribbon.Brushes.RibbonWindow.TitleBackground}" />
         <Setter Property="TitleBarHeight" Value="34" />
         <Setter Property="TitleForeground" Value="{DynamicResource Modern.Ribbon.Brushes.RibbonWindow.TitleForeground}" />

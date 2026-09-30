@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Modern="clr-namespace:Modern"
                     xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
@@ -9,8 +9,8 @@
     <Thickness x:Key="Modern.Ribbon.Values.Default.Margin">1 1 1 1</Thickness>
     <Thickness x:Key="Modern.Ribbon.Values.Default.Padding">2 0 2 0</Thickness>
     <Thickness x:Key="Modern.Ribbon.Values.RibbonTabControl.Content.BorderThickness">0</Thickness>
-    <Thickness x:Key="Modern.Ribbon.Values.RibbonTabControl.Content.Margin">8 0 8 0</Thickness>
-    <CornerRadius x:Key="Modern.Ribbon.Values.RibbonTabControl.Content.CornerRadius">8</CornerRadius>
+    <Thickness x:Key="Modern.Ribbon.Values.RibbonTabControl.Content.Margin">0</Thickness>
+    <CornerRadius x:Key="Modern.Ribbon.Values.RibbonTabControl.Content.CornerRadius">0</CornerRadius>
 
     <Thickness x:Key="Modern.Ribbon.Values.RibbonTabItem.Active.BorderThickness">0 0 0 2</Thickness>
 

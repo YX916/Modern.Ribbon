@@ -63,8 +63,8 @@ Themes\Controls\WindowCommands.xaml
   <Thickness x:Key="Modern.Ribbon.Values.Default.Margin">1 1 1 1</Thickness>
   <Thickness x:Key="Modern.Ribbon.Values.Default.Padding">2 0 2 0</Thickness>
   <Thickness x:Key="Modern.Ribbon.Values.RibbonTabControl.Content.BorderThickness">0</Thickness>
-  <Thickness x:Key="Modern.Ribbon.Values.RibbonTabControl.Content.Margin">8 0 8 0</Thickness>
-  <CornerRadius x:Key="Modern.Ribbon.Values.RibbonTabControl.Content.CornerRadius">8</CornerRadius>
+  <Thickness x:Key="Modern.Ribbon.Values.RibbonTabControl.Content.Margin">0</Thickness>
+  <CornerRadius x:Key="Modern.Ribbon.Values.RibbonTabControl.Content.CornerRadius">0</CornerRadius>
   <Thickness x:Key="Modern.Ribbon.Values.RibbonTabItem.Active.BorderThickness">0 0 0 2</Thickness>
   <GridLength x:Key="Modern.Ribbon.Values.MenuItem.IconColumnWidth">25</GridLength>
   <PathGeometry x:Key="Modern.Ribbon.Values.Arrow.Left">M 0 0 L -5 5 L 0 10</PathGeometry>
@@ -2215,7 +2215,7 @@ Themes\Controls\WindowCommands.xaml
     </ControlTemplate.Triggers>
   </ControlTemplate>
   <ControlTemplate x:Key="Modern.Ribbon.Templates.RibbonWindow" TargetType="{x:Type Modern:RibbonWindow}">
-    <Grid Margin="{TemplateBinding Padding}" LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}" RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}">
+    <Grid Margin="{TemplateBinding Margin}" LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}" RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}">
       <AdornerDecorator x:Name="Adorner">
         <Grid Background="{TemplateBinding Background}">
           <Grid.RowDefinitions>
@@ -2225,7 +2225,7 @@ Themes\Controls\WindowCommands.xaml
           <DockPanel Grid.Row="0" Height="{TemplateBinding TitleBarHeight}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="{TemplateBinding TitleBackground}" LastChildFill="True">
             <Image x:Name="PART_Icon" Width="16" Height="16" Margin="8 8 0 0" VerticalAlignment="{TemplateBinding VerticalIconAlignment}" DockPanel.Dock="Left" SnapsToDevicePixels="True" Source="{Modern:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}},                                                              {Binding RelativeSource={RelativeSource Self}}}" Stretch="Uniform" Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource Modern.Ribbon.Converters.BoolToVisibilityConverter}}" />
             <ContentPresenter x:Name="PART_WindowCommands" Grid.Row="0" HorizontalAlignment="Right" Panel.ZIndex="1" Content="{TemplateBinding WindowCommands}" DockPanel.Dock="Right" />
-            <Modern:RibbonTitleBar x:Name="PART_RibbonTitleBar" Header="{TemplateBinding Title}" Foreground="{TemplateBinding TitleForeground}" IsCollapsed="{TemplateBinding IsCollapsed}" VerticalAlignment="Stretch" />
+            <Modern:RibbonTitleBar x:Name="PART_RibbonTitleBar" Header="{TemplateBinding Title}" VerticalAlignment="Stretch" Foreground="{TemplateBinding TitleForeground}" IsCollapsed="{TemplateBinding IsCollapsed}" />
           </DockPanel>
           <ContentPresenter x:Name="PART_ContentPresenter" Grid.Row="1" />
         </Grid>
@@ -2249,6 +2249,7 @@ Themes\Controls\WindowCommands.xaml
         <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible" />
       </MultiTrigger>
       <Trigger Property="WindowState" Value="Maximized">
+        <Setter Property="Margin" Value="0" />
         <Setter TargetName="Adorner" Property="Margin" Value="0" />
         <Setter TargetName="PART_Border" Property="Visibility" Value="Collapsed" />
         <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Collapsed" />
@@ -2256,7 +2257,6 @@ Themes\Controls\WindowCommands.xaml
     </ControlTemplate.Triggers>
   </ControlTemplate>
   <Style x:Key="Modern.Ribbon.Styles.RibbonWindow" TargetType="{x:Type Modern:RibbonWindow}">
-    <Setter Property="Template" Value="{StaticResource Modern.Ribbon.Templates.RibbonWindow}" />
     <Setter Property="Background" Value="{DynamicResource Modern.Ribbon.Brushes.RibbonWindow.Background}" />
     <Setter Property="BorderBrush" Value="{DynamicResource Modern.Ribbon.Brushes.AccentBase}" />
     <Setter Property="BorderThickness" Value="0" />
@@ -2264,8 +2264,11 @@ Themes\Controls\WindowCommands.xaml
     <Setter Property="CaptionColor" Value="Transparent" />
     <Setter Property="Foreground" Value="{DynamicResource Modern.Ribbon.Brushes.Black}" />
     <Setter Property="GlowColor" Value="{DynamicResource Modern.Ribbon.Colors.AccentBase}" />
+    <!-- Window Margin -->
+    <Setter Property="Margin" Value="2 2 2 0" />
     <Setter Property="NonActiveBorderBrush" Value="#434346" />
     <Setter Property="NonActiveGlowColor" Value="#434346" />
+    <Setter Property="Template" Value="{StaticResource Modern.Ribbon.Templates.RibbonWindow}" />
     <Setter Property="TitleBackground" Value="{DynamicResource Modern.Ribbon.Brushes.RibbonWindow.TitleBackground}" />
     <Setter Property="TitleBarHeight" Value="34" />
     <Setter Property="TitleForeground" Value="{DynamicResource Modern.Ribbon.Brushes.RibbonWindow.TitleForeground}" />
@@ -3286,7 +3289,7 @@ Themes\Controls\WindowCommands.xaml
       <Button x:Name="PART_Restore" Uid="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:WindowCommands}}}" Style="{DynamicResource Modern.Ribbon.Styles.WindowCommands.CaptionButton}" Padding="0" controlzex:NonClientControlProperties.ClickStrategy="MouseEvent" controlzex:NonClientControlProperties.HitTestResult="MAXBUTTON" AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}" Focusable="False" SnapsToDevicePixels="True" ToolTip="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:WindowCommands}}}" Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Maximized}}">
         <Path Width="16" Height="16" HorizontalAlignment="Center" VerticalAlignment="Center" Data="F1M11.999,10.002L10.998,10.002 10.998,5.002 5.998,5.002 5.998,4.001 11.999,4.001z M10.002,11.999L4.001,11.999 4.001,5.998 10.002,5.998z M5.002,3L5.002,5.002 3,5.002 3,13 10.998,13 10.998,10.998 13,10.998 13,3z" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
       </Button>
-      <Button x:Name="PART_Close" Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:WindowCommands}}}" Style="{DynamicResource Modern.Ribbon.Styles.WindowCommands.CaptionButton}" Padding="0" Modern:RibbonProperties.MouseOverBackground="{DynamicResource Modern.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background}" Modern:RibbonProperties.PressedBackground="{DynamicResource Modern.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background}" controlzex:NonClientControlProperties.ClickStrategy="MouseEvent" controlzex:NonClientControlProperties.HitTestResult="CLOSE" AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}" Focusable="False" SnapsToDevicePixels="True" ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:WindowCommands}}}">
+      <Button x:Name="PART_Close" Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:WindowCommands}}}" Style="{DynamicResource Modern.Ribbon.Styles.WindowCommands.CaptionButton}" Padding="0" Modern:RibbonProperties.MouseOverBackground="{DynamicResource Modern.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background}" Modern:RibbonProperties.PressedBackground="{DynamicResource Modern.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background}" Modern:RibbonProperties.MouseOverForeground="{DynamicResource Modern.Ribbon.Colors.White}" controlzex:NonClientControlProperties.ClickStrategy="MouseEvent" controlzex:NonClientControlProperties.HitTestResult="CLOSE" AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}" Focusable="False" SnapsToDevicePixels="True" ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Modern:WindowCommands}}}">
         <Path Width="16" Height="16" HorizontalAlignment="Center" VerticalAlignment="Center" Data="F1M8.583,8L13,12.424 12.424,13 8,8.583 3.576,13 3,12.424 7.417,8 3,3.576 3.576,3 8,7.417 12.424,3 13,3.576z" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
       </Button>
     </StackPanel>

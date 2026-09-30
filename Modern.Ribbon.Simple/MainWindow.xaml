@@ -15,6 +15,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="24" />
         </Grid.RowDefinitions>
 
         <MD:Ribbon Grid.Row="0"
@@ -82,11 +83,10 @@
                                LargeIcon="/application.ico" />
                 </MD:RibbonGroupBox>
             </MD:RibbonTabItem>
-            
         </MD:Ribbon>
-
         <Grid Grid.Row="1">
             <TextBlock>My first window containing a Ribbon and something else.</TextBlock>
         </Grid>
+        <MD:StatusBar Grid.Row="2"/>
     </Grid>
 </MD:RibbonWindow>
