@@ -12,7 +12,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Themes\Effects\Grayscale.ps" />
+		<None Remove="Themes\Effects\Grayscale.ps" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -51,11 +51,11 @@
 		<FilesForXamlCombine>Themes\Controls\*.xaml;Themes\Common.xaml</FilesForXamlCombine>
 		<Copyright>Copyright © 2025 - $([System.DateTime]::Today.ToString(yyyy)) YYX</Copyright>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<Version>2.1.0</Version>
+		<Version>2.1.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Resource Include="Themes\Effects\Grayscale.ps" />
+		<Resource Include="Themes\Effects\Grayscale.ps" />
 	</ItemGroup>
 	<ItemGroup>
 		<XAMLCombineItems Include="$(FilesForXamlCombine)">

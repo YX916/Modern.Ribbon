@@ -84,6 +84,7 @@
                     Style="{DynamicResource Modern.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
                     Modern:RibbonProperties.MouseOverBackground="{DynamicResource Modern.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background}"
+                    Modern:RibbonProperties.MouseOverForeground="{DynamicResource Modern.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Foreground}"
                     Modern:RibbonProperties.PressedBackground="{DynamicResource Modern.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background}"
                     controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
                     controlzex:NonClientControlProperties.HitTestResult="CLOSE"
@@ -114,58 +115,9 @@
 
     <Style x:Key="Modern.Ribbon.Styles.WindowCommands"
            TargetType="{x:Type Modern:WindowCommands}">
-        <Setter Property="Focusable" Value="False" />
-        <Setter Property="Foreground" Value="{DynamicResource Modern.Ribbon.Brushes.LabelText}" />
-        <Setter Property="Template" Value="{DynamicResource Modern.Ribbon.Templates.WindowCommands}" />
-    </Style>
-
-    <ControlTemplate x:Key="Modern.Ribbon.Templates.WindowCommands.Button"
-                     TargetType="{x:Type Button}">
-        <Grid Background="{TemplateBinding Background}">
-            <ContentPresenter x:Name="contentPresenter"
-                              Margin="11 1 11 1"
-                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                              RecognizesAccessKey="True"
-                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                              Opacity=".75" />
-
-            <Rectangle x:Name="border"
-                       Width="0"
-                       Height="15"
-                       Margin="10 0 0 0"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Stretch"
-                       Fill="{TemplateBinding Foreground}"
-                       IsHitTestVisible="False"
-                       SnapsToDevicePixels="True"
-                       Opacity="0.25" />
-        </Grid>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="contentPresenter" Property="Opacity" Value="1" />
-            </Trigger>
-            <Trigger Property="controlzex:NonClientControlProperties.IsNCMouseOver" Value="True">
-                <Setter TargetName="contentPresenter" Property="Opacity" Value="1" />
-            </Trigger>
-            <Trigger Property="IsKeyboardFocused" Value="True" />
-            <Trigger Property="ToggleButton.IsChecked" Value="True" />
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource Modern.Ribbon.Brushes.DarkIdealForegroundDisabled}" />
-            </Trigger>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
-                <Setter TargetName="border" Property="Rectangle.Width" Value="1" />
-            </DataTrigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-
-    <Style x:Key="Modern.Ribbon.Styles.WindowCommands.Button"
-           TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="{DynamicResource Modern.Ribbon.Brushes.TransparentWhite}" />
-        <Setter Property="Foreground" Value="{DynamicResource Modern.Ribbon.Brushes.LabelText}" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="1" />
-        <Setter Property="Template" Value="{DynamicResource Modern.Ribbon.Templates.WindowCommands.Button}" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Focusable"
+                Value="False" />
+        <Setter Property="Template"
+                Value="{DynamicResource Modern.Ribbon.Templates.WindowCommands}" />
     </Style>
 </ResourceDictionary>
