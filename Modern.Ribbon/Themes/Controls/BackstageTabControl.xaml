@@ -6,17 +6,9 @@
     <ControlTemplate x:Key="Modern.Ribbon.Templates.BackstageTabControl.Button"
                      TargetType="{x:Type Modern:Button}">
         <Border x:Name="rootBorder"
+                Background="Transparent"
                 ToolTip="{TemplateBinding ToolTip}">
-            <Grid Background="Transparent">
-                <Border x:Name="underlineBorder"
-                        Margin="4 8 0 8"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Stretch"
-                        Background="Transparent"
-                        BorderBrush="{Binding Path=(Modern:RibbonProperties.IsSelectedBackground), RelativeSource={RelativeSource TemplatedParent}}"
-                        BorderThickness="4 0 0 0"
-                        Visibility="Collapsed" />
-
+            <Grid>
                 <StackPanel Margin="25 0 15 0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
@@ -28,7 +20,6 @@
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                           CustomSize="{Binding Path=(Modern:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                           IconSize="{Binding Path=(Modern:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
-
                     <ContentControl x:Name="controlLabel"
                                     VerticalAlignment="Center"
                                     Content="{TemplateBinding Header}"
@@ -45,41 +36,11 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{DynamicResource Modern.Ribbon.Brushes.Gray2}" />
-                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
+                <Setter TargetName="rootBorder" Property="Background" Value="{Binding Path=(Modern:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource TemplatedParent}}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{Binding Path=(Modern:RibbonProperties.IsSelectedBackground), RelativeSource={RelativeSource TemplatedParent}}" />
-                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
+                <Setter TargetName="rootBorder" Property="Background" Value="{Binding Path=(Modern:RibbonProperties.PressedBackground), RelativeSource={RelativeSource TemplatedParent}}" />
             </Trigger>
-            <Trigger Property="IsKeyboardFocused" Value="True">
-                <Setter TargetName="rootBorder" Property="BorderBrush" Value="{DynamicResource Modern.Ribbon.Brushes.Black}" />
-            </Trigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver" Value="True" />
-                    <Condition Property="IsPressed" Value="True" />
-                </MultiTrigger.Conditions>
-                <MultiTrigger.EnterActions>
-                    <BeginStoryboard x:Name="beginStoryboardSelectedMouseOver">
-                        <Storyboard>
-                            <ThicknessAnimation Storyboard.TargetName="underlineBorder"
-                                                Storyboard.TargetProperty="Margin"
-                                                To="0"
-                                                Duration="0:0:0.1" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </MultiTrigger.EnterActions>
-                <MultiTrigger.ExitActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <ThicknessAnimation Storyboard.TargetName="underlineBorder"
-                                                Storyboard.TargetProperty="Margin"
-                                                Duration="0:0:0.1" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </MultiTrigger.ExitActions>
-            </MultiTrigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="controlLabel" Property="Opacity" Value="0.5" />
             </Trigger>
@@ -88,12 +49,14 @@
 
     <Style x:Key="Modern.Ribbon.Styles.BackstageTabControl.Button"
            TargetType="{x:Type Modern:Button}">
-        <Setter Property="Modern:RibbonProperties.IconSize" Value="Small" />
-        <Setter Property="Modern:RibbonProperties.IsSelectedBackground" Value="{DynamicResource Modern.Ribbon.Brushes.BackstageTabItem.Selected.Background}" />
-        <Setter Property="Modern:RibbonProperties.MouseOverBackground" Value="{DynamicResource Modern.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Modern.Ribbon.Styles.FocusVisual.Empty}" />
+        <Setter Property="Foreground" Value="{DynamicResource Modern.Ribbon.Brushes.BackstageTabItem.Header.Foreground}" />
         <Setter Property="Height" Value="38" />
         <Setter Property="Margin" Value="0" />
+        <Setter Property="Modern:RibbonProperties.IconSize" Value="Small" />
+        <Setter Property="Modern:RibbonProperties.MouseOverBackground" Value="{DynamicResource Modern.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
+        <Setter Property="Modern:RibbonProperties.PressedBackground" Value="{DynamicResource Modern.Ribbon.Brushes.BackstageTabItem.Selected.Background}" />
         <Setter Property="Template" Value="{DynamicResource Modern.Ribbon.Templates.BackstageTabControl.Button}" />
     </Style>
 
@@ -129,15 +92,8 @@
         </Grid>
 
         <ControlTemplate.Triggers>
-            <Trigger Property="IsKeyboardFocused" Value="True">
-                <Setter Property="Foreground" Value="{Binding Path=(Modern:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
-                <Setter TargetName="ContentGrid" Property="Background" Value="{Binding Path=(Modern:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource TemplatedParent}}" />
-                <Setter TargetName="arrowpath" Property="Opacity" Value="0.8" />
-                <Setter TargetName="backellipse" Property="Opacity" Value="0.8" />
-            </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Foreground" Value="{Binding Path=(Modern:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
-                <Setter TargetName="ContentGrid" Property="Background" Value="{Binding Path=(Modern:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource TemplatedParent}}" />
                 <Setter TargetName="arrowpath" Property="Opacity" Value="0.8" />
                 <Setter TargetName="backellipse" Property="Opacity" Value="0.8" />
             </Trigger>
@@ -146,13 +102,11 @@
 
     <Style x:Key="Modern.Ribbon.Styles.BackstageBackButton"
            TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="{DynamicResource Modern.Ribbon.Brushes.Backstage.BackButton.Background}" />
-        <Setter Property="Modern:RibbonProperties.MouseOverBackground" Value="{DynamicResource Modern.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
-        <Setter Property="Modern:RibbonProperties.MouseOverForeground" Value="{DynamicResource Modern.Ribbon.Brushes.IdealForeground}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Modern.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Modern.Ribbon.Brushes.Backstage.BackButton.Foreground}" />
         <Setter Property="Height" Value="48" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Modern:RibbonProperties.MouseOverForeground" Value="{DynamicResource Modern.Ribbon.Brushes.IdealForeground}" />
         <Setter Property="Template" Value="{DynamicResource Modern.Ribbon.Templates.BackstageBackButton}" />
     </Style>
 

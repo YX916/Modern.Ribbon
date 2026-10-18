@@ -142,7 +142,7 @@ public class BackstageTabControl : Selector, ILogicalChildSupport {
     #region ItemsPanelMinWidth
 
     /// <summary>Identifies the <see cref="ItemsPanelMinWidth"/> dependency property.</summary>
-    public static readonly DependencyProperty ItemsPanelMinWidthProperty = DependencyProperty.Register(nameof(ItemsPanelMinWidth), typeof(double), typeof(BackstageTabControl), new PropertyMetadata(125d));
+    public static readonly DependencyProperty ItemsPanelMinWidthProperty = DependencyProperty.Register(nameof(ItemsPanelMinWidth), typeof(double), typeof(BackstageTabControl), new PropertyMetadata(128d));
 
     /// <summary>
     /// Gets or sets the MinWidth for the ItemsPanel.

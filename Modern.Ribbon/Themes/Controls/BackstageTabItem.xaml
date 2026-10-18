@@ -5,18 +5,9 @@
     <ControlTemplate x:Key="Modern.Ribbon.Templates.BackstageTabItem"
                      TargetType="{x:Type Modern:BackstageTabItem}">
         <Border x:Name="rootBorder"
+                Background="Transparent"
                 ToolTip="{TemplateBinding ToolTip}">
-            <Grid x:Name="rootGrid"
-                  Background="Transparent">
-                <Border x:Name="underlineBorder"
-                        Margin="4 8 0 8"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Stretch"
-                        Background="Transparent"
-                        BorderBrush="{Binding Path=(Modern:RibbonProperties.IsSelectedBackground), RelativeSource={RelativeSource TemplatedParent}}"
-                        BorderThickness="4 0 0 0"
-                        Visibility="Collapsed" />
-
+            <Grid x:Name="rootGrid">
                 <StackPanel Margin="25 0 15 0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
@@ -49,43 +40,12 @@
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="PART_Header" Property="Opacity" Value="0.5" />
             </Trigger>
-            <Trigger SourceName="rootGrid" Property="IsMouseOver" Value="True">
-                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{DynamicResource Modern.Ribbon.Brushes.Gray2}" />
-                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="rootBorder" Property="Background" Value="{Binding Path=(Modern:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource TemplatedParent}}" />
             </Trigger>
             <Trigger Property="Selector.IsSelected" Value="True">
-                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{Binding Path=(Modern:RibbonProperties.IsSelectedBackground), RelativeSource={RelativeSource TemplatedParent}}" />
-                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
+                <Setter TargetName="rootBorder" Property="Background" Value="{Binding Path=(Modern:RibbonProperties.IsSelectedBackground), RelativeSource={RelativeSource TemplatedParent}}" />
             </Trigger>
-            <Trigger Property="IsKeyboardFocused" Value="True">
-                <Setter TargetName="rootBorder" Property="BorderBrush" Value="{DynamicResource Modern.Ribbon.Brushes.Black}" />
-            </Trigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="Selector.IsSelected" Value="True" />
-                    <Condition Property="IsMouseOver" Value="True" />
-                    <Condition SourceName="rootGrid" Property="IsMouseOver" Value="True" />
-                </MultiTrigger.Conditions>
-                <MultiTrigger.EnterActions>
-                    <BeginStoryboard x:Name="beginStoryboardSelectedMouseOver">
-                        <Storyboard>
-                            <ThicknessAnimation Storyboard.TargetName="underlineBorder"
-                                                Storyboard.TargetProperty="Margin"
-                                                To="0"
-                                                Duration="0:0:0.1" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </MultiTrigger.EnterActions>
-                <MultiTrigger.ExitActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <ThicknessAnimation Storyboard.TargetName="underlineBorder"
-                                                Storyboard.TargetProperty="Margin"
-                                                Duration="0:0:0.1" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </MultiTrigger.ExitActions>
-            </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
