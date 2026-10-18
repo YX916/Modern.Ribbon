@@ -51,7 +51,7 @@
 		<FilesForXamlCombine>Themes\Controls\*.xaml;Themes\Common.xaml</FilesForXamlCombine>
 		<Copyright>Copyright © 2025 - $([System.DateTime]::Today.ToString(yyyy)) YYX</Copyright>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<Version>2.1.1</Version>
+		<Version>2.1.2</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
