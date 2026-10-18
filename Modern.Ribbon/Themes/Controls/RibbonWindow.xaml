@@ -11,7 +11,6 @@
               RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}">
             <!-- 底层：内容容器，负责Padding内边距，承载全部UI -->
             <Border x:Name="PART_ContentHost"
-                    Padding="{TemplateBinding ContentPadding}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Background="{TemplateBinding Background}"
@@ -49,10 +48,10 @@
                                               DockPanel.Dock="Right" />
 
                             <Modern:RibbonTitleBar x:Name="PART_RibbonTitleBar"
-                                                  Header="{TemplateBinding Title}"
-                                                  VerticalAlignment="Stretch"
-                                                  Foreground="{TemplateBinding TitleForeground}"
-                                                  IsCollapsed="{TemplateBinding IsCollapsed}" />
+                                                   Header="{TemplateBinding Title}"
+                                                   VerticalAlignment="Stretch"
+                                                   Foreground="{TemplateBinding TitleForeground}"
+                                                   IsCollapsed="{TemplateBinding IsCollapsed}" />
                         </DockPanel>
 
                         <ContentPresenter x:Name="PART_ContentPresenter"
@@ -70,11 +69,11 @@
                     UseLayoutRounding="True" />
 
             <ResizeGrip x:Name="WindowResizeGrip"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Bottom"
-                       controlzex:WindowChrome.ResizeGripDirection="BottomRight"
-                       IsTabStop="false"
-                       Visibility="Collapsed" />
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        controlzex:WindowChrome.ResizeGripDirection="BottomRight"
+                        IsTabStop="false"
+                        Visibility="Collapsed" />
         </Grid>
 
         <ControlTemplate.Triggers>
@@ -93,8 +92,6 @@
                 <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible" />
             </MultiTrigger>
             <Trigger Property="WindowState" Value="Maximized">
-                <!-- 最大化：清除内容容器Padding，内容撑满窗口 -->
-                <Setter TargetName="PART_ContentHost" Property="Padding" Value="0" />
                 <!-- 只隐藏顶层边框和ResizeGrip，内容容器PART_ContentHost保留显示！ -->
                 <Setter TargetName="PART_Border" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Collapsed" />

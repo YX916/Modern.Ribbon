@@ -2160,7 +2160,7 @@ Themes\Controls\WindowCommands.xaml
   <ControlTemplate x:Key="Modern.Ribbon.Templates.RibbonWindow" TargetType="{x:Type Modern:RibbonWindow}">
     <Grid LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}" RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}">
       <!-- 底层：内容容器，负责Padding内边距，承载全部UI -->
-      <Border x:Name="PART_ContentHost" Padding="{TemplateBinding ContentPadding}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{TemplateBinding Background}" UseLayoutRounding="True">
+      <Border x:Name="PART_ContentHost" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{TemplateBinding Background}" UseLayoutRounding="True">
         <AdornerDecorator x:Name="Adorner">
           <Grid>
             <Grid.RowDefinitions>
@@ -2196,8 +2196,6 @@ Themes\Controls\WindowCommands.xaml
         <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible" />
       </MultiTrigger>
       <Trigger Property="WindowState" Value="Maximized">
-        <!-- 最大化：清除内容容器Padding，内容撑满窗口 -->
-        <Setter TargetName="PART_ContentHost" Property="Padding" Value="0" />
         <!-- 只隐藏顶层边框和ResizeGrip，内容容器PART_ContentHost保留显示！ -->
         <Setter TargetName="PART_Border" Property="Visibility" Value="Collapsed" />
         <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Collapsed" />

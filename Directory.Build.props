@@ -1,0 +1,30 @@
+<Project>
+    <!--Version-->
+    <PropertyGroup>
+    	<Version>2.2.0</Version>
+    </PropertyGroup>
+    <!-- NuGet -->
+    <PropertyGroup>
+    	<Copyright>Copyright © 2025 - $([System.DateTime]::Today.ToString(yyyy)) YYX</Copyright>
+    	<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+    </PropertyGroup>
+    <PropertyGroup>
+    	<Authors>YYXIsLucky</Authors>
+    	<PackageReadmeFile>README.md</PackageReadmeFile>
+    	<PackageProjectUrl>https://github.com/YX916/Modern.Ribbon</PackageProjectUrl>
+    	<RepositoryUrl>https://github.com/YX916/Modern.Ribbon.git</RepositoryUrl>
+    	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description>Modern.Ribbon is a WPF Ribbon control library that provides a modern and customizable ribbon interface for Windows applications.</Description>
+    </PropertyGroup>
+    <ItemGroup>
+	    <None Include="..\LICENSE">
+	    	<Pack>True</Pack>
+	    	<PackagePath>\</PackagePath>
+	    </None>
+	    <None Include="..\README.md">
+	    	<Pack>True</Pack>
+	    	<PackagePath>\</PackagePath>
+	    </None>
+    </ItemGroup>
+</Project>
