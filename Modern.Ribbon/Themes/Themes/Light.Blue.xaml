@@ -8,7 +8,6 @@
                     mc:Ignorable="options d">
     <!-- COLORS -->
 
-    <!-- Accent colors -->
     <!-- 基准主色 -->
     <Color x:Key="Modern.Ribbon.Colors.AccentBase">#FF1677FF</Color>
     <!-- 80% -->
@@ -21,7 +20,6 @@
     <Color x:Key="Modern.Ribbon.Colors.Accent20">#331677FF</Color>
 
     <Color x:Key="Modern.Ribbon.Colors.Highlight">#FF0E5ECC</Color>
-
     <Color x:Key="Modern.Ribbon.Colors.AccentLight1">#FF328BFF</Color>
     <Color x:Key="Modern.Ribbon.Colors.AccentLight1.Foreground">#FF000000</Color>
     <Color x:Key="Modern.Ribbon.Colors.AccentLight2">#FF529DFF</Color>
@@ -39,15 +37,13 @@
     <!-- Base colors -->
     <Color x:Key="Modern.Ribbon.Colors.Black">#FF000000</Color>
     <Color x:Key="Modern.Ribbon.Colors.Black20">#51000000</Color>
+
     <Color x:Key="Modern.Ribbon.Colors.White">#FFFFFFFF</Color>
-    <!-- 80% -->
     <Color x:Key="Modern.Ribbon.Colors.White80">#CCFFFFFF</Color>
-    <!-- 60% -->
     <Color x:Key="Modern.Ribbon.Colors.White60">#99FFFFFF</Color>
-    <!-- 40% -->
     <Color x:Key="Modern.Ribbon.Colors.White40">#66FFFFFF</Color>
-    <!-- 20% -->
     <Color x:Key="Modern.Ribbon.Colors.White20">#33FFFFFF</Color>
+
     <Color x:Key="Modern.Ribbon.Colors.Gray1">#FF333333</Color>
     <Color x:Key="Modern.Ribbon.Colors.Gray2">#FF7F7F7F</Color>
     <Color x:Key="Modern.Ribbon.Colors.Gray3">#FF9D9D9D</Color>
@@ -131,6 +127,8 @@
     <!-- Generic control brushes -->
     <SolidColorBrush x:Key="Modern.Ribbon.Brushes.Control.Border" Color="{StaticResource Modern.Ribbon.Colors.Gray6}" options:Freeze="True" />
     <SolidColorBrush x:Key="Modern.Ribbon.Brushes.Control.Disabled.Border" Color="{StaticResource Modern.Ribbon.Colors.Gray5}" options:Freeze="True" />
+
+    <!-- CONTROLS -->
 
     <!-- Backstage -->
     <SolidColorBrush x:Key="Modern.Ribbon.Brushes.Backstage.Background" Color="Transparent" options:Freeze="True" />
@@ -291,9 +289,9 @@
     <!-- WindowCommands -->
     <SolidColorBrush x:Key="Modern.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground" Color="{StaticResource Modern.Ribbon.Colors.Black}" options:Freeze="True" />
     <SolidColorBrush x:Key="Modern.Ribbon.Brushes.WindowCommands.CaptionButton.Background" Color="{StaticResource Modern.Ribbon.Colors.TransparentWhite}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Modern.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background" Color="{StaticResource Modern.Ribbon.Colors.Accent20}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Modern.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background" Color="{StaticResource Modern.Ribbon.Colors.Gray9}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Modern.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background" Color="{StaticResource Modern.Ribbon.Colors.Gray10}" options:Freeze="True" />
     <SolidColorBrush x:Key="Modern.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Foreground" Color="{StaticResource Modern.Ribbon.Colors.Black}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Modern.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background" Color="{StaticResource Modern.Ribbon.Colors.Accent40}" options:Freeze="True" />
 
     <SolidColorBrush x:Key="Modern.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background" Color="#E81123" options:Freeze="True" />
     <SolidColorBrush x:Key="Modern.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Foreground" Color="{StaticResource Modern.Ribbon.Colors.White}" options:Freeze="True" />
