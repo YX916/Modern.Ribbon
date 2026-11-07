@@ -1,4 +1,4 @@
-﻿namespace ControlzEx
+﻿namespace Modern.Additional
 {
     using System;
     using System.Diagnostics;
@@ -6,8 +6,8 @@
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
-    using ControlzEx.Internal;
-    using ControlzEx.Internal.KnownBoxes;
+    using Modern.Additional.Internal;
+    using Modern.Additional.Internal.KnownBoxes;
     using global::Windows.Win32;
 
     public static class ToolTipAssist

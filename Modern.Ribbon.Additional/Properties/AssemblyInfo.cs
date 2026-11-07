@@ -6,9 +6,9 @@ using System.Windows.Markup;
 [assembly: CLSCompliant(true)]
 
 [assembly: XmlnsPrefix("urn:controlzex", "controlzex")]
-[assembly: XmlnsDefinition("urn:controlzex", "ControlzEx")]
-[assembly: XmlnsDefinition("urn:controlzex", "ControlzEx.Controls")]
-[assembly: XmlnsDefinition("urn:controlzex", "ControlzEx.Behaviors")]
-[assembly: XmlnsDefinition("urn:controlzex", "ControlzEx.Theming")]
+[assembly: XmlnsDefinition("urn:controlzex", "Modern.Additional")]
+[assembly: XmlnsDefinition("urn:controlzex", "Modern.Additional.Controls")]
+[assembly: XmlnsDefinition("urn:controlzex", "Modern.Additional.Behaviors")]
+[assembly: XmlnsDefinition("urn:controlzex", "Modern.Additional.Theming")]
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]

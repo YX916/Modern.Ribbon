@@ -1,17 +1,17 @@
 #pragma warning disable 618
-namespace ControlzEx
+namespace Modern.Additional
 {
     using System;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Interop;
     using System.Windows.Media;
-    using ControlzEx.Behaviors;
-    using ControlzEx.Helpers;
-    using ControlzEx.Internal;
-    using ControlzEx.Internal.KnownBoxes;
-    using ControlzEx.Native;
-    using ControlzEx.Theming;
+    using Modern.Additional.Behaviors;
+    using Modern.Additional.Helpers;
+    using Modern.Additional.Internal;
+    using Modern.Additional.Internal.KnownBoxes;
+    using Modern.Additional.Native;
+    using Modern.Additional.Theming;
     using Microsoft.Xaml.Behaviors;
     using Windows.Win32;
     using Windows.Win32.Foundation;

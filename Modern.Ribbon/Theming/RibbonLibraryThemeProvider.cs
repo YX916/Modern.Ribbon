@@ -3,7 +3,7 @@ namespace Modern.Theming;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Media;
-using ControlzEx.Theming;
+using Modern.Additional.Theming;
 using Modern.Helpers.ColorHelpers;
 
 /// <summary>

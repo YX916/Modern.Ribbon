@@ -1,7 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 #pragma warning disable 618, SA1131
 
-namespace ControlzEx.Helpers
+namespace Modern.Additional.Helpers
 {
     using System;
     using System.Runtime.InteropServices;

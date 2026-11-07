@@ -1,4 +1,4 @@
-﻿namespace ControlzEx.Theming
+﻿namespace Modern.Additional.Theming
 {
     using System;
     using System.Diagnostics;

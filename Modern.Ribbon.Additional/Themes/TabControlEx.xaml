@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:ControlzEx.Controls">
+                    xmlns:controls="clr-namespace:Modern.Additional.Controls">
     <Style TargetType="{x:Type Rectangle}" />
 
-    <ControlTemplate x:Key="ControlzEx.Templates.TabControlEx" TargetType="{x:Type controls:TabControlEx}">
+    <ControlTemplate x:Key="Modern.Additional.Templates.TabControlEx" TargetType="{x:Type controls:TabControlEx}">
         <Grid ClipToBounds="true"
               KeyboardNavigation.TabNavigation="Local"
               SnapsToDevicePixels="true">
@@ -71,9 +71,9 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="ControlzEx.Styles.TabControlEx" TargetType="{x:Type controls:TabControlEx}">
+    <Style x:Key="Modern.Additional.Styles.TabControlEx" TargetType="{x:Type controls:TabControlEx}">
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Template" Value="{StaticResource ControlzEx.Templates.TabControlEx}" />
+        <Setter Property="Template" Value="{StaticResource Modern.Additional.Templates.TabControlEx}" />
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />

@@ -1,8 +1,8 @@
-﻿namespace ControlzEx.Automation.Peers
+﻿namespace Modern.Additional.Automation.Peers
 {
     using System.Windows.Automation.Peers;
     using System.Windows.Controls;
-    using ControlzEx.Controls;
+    using Modern.Additional.Controls;
 
     /// <summary>
     ///     Automation-Peer for <see cref="TabControlEx" />.

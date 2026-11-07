@@ -1,6 +1,6 @@
 ﻿#pragma warning disable SA1602
 
-namespace ControlzEx.Native
+namespace Modern.Additional.Native
 {
     /// <summary>
     /// Non-client hit test values, HT*

@@ -1,11 +1,11 @@
 ﻿#nullable enable
-namespace ControlzEx.Theming
+namespace Modern.Additional.Theming
 {
     using System;
     using System.Windows;
     using System.Windows.Media;
-    using ControlzEx.Internal;
-    using ControlzEx.Internal.KnownBoxes;
+    using Modern.Additional.Internal;
+    using Modern.Additional.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents a theme.
@@ -31,7 +31,7 @@ namespace ControlzEx.Theming
         /// Initializes a new instance.
         /// </summary>
         /// <param name="resourceAddress">The URI of the theme ResourceDictionary.</param>
-        /// <param name="libraryThemeProvider">The <see cref="ControlzEx.Theming.LibraryThemeProvider"/> which created this instance.</param>
+        /// <param name="libraryThemeProvider">The <see cref="Modern.Additional.Theming.LibraryThemeProvider"/> which created this instance.</param>
         public LibraryTheme(Uri resourceAddress, LibraryThemeProvider? libraryThemeProvider)
             : this(CreateResourceDictionary(resourceAddress), libraryThemeProvider)
         {
@@ -41,7 +41,7 @@ namespace ControlzEx.Theming
         /// Initializes a new instance.
         /// </summary>
         /// <param name="resourceDictionary">The ResourceDictionary of the theme.</param>
-        /// <param name="libraryThemeProvider">The <see cref="ControlzEx.Theming.LibraryThemeProvider"/> which created this instance.</param>
+        /// <param name="libraryThemeProvider">The <see cref="Modern.Additional.Theming.LibraryThemeProvider"/> which created this instance.</param>
         public LibraryTheme(ResourceDictionary resourceDictionary, LibraryThemeProvider? libraryThemeProvider)
         {
             if (resourceDictionary is null)

@@ -1,5 +1,5 @@
 ﻿#nullable enable
-namespace ControlzEx.Theming
+namespace Modern.Additional.Theming
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace ControlzEx.Theming
     using System.Windows;
     using System.Windows.Markup;
     using System.Windows.Media;
-    using ControlzEx.Internal.KnownBoxes;
+    using Modern.Additional.Internal.KnownBoxes;
 
     public class RuntimeThemeGenerator : INotifyPropertyChanged
     {

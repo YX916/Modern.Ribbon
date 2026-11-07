@@ -1,7 +1,7 @@
 // ReSharper disable once CheckNamespace
-namespace ControlzEx.Behaviors
+namespace Modern.Additional.Behaviors
 {
-    using ControlzEx.Controls.Internal;
+    using Modern.Additional.Controls.Internal;
 
     public sealed class ChangeScope : DisposableObject
     {

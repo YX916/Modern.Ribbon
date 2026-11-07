@@ -1,5 +1,5 @@
 ﻿#pragma warning disable CA1001
-namespace ControlzEx.Behaviors
+namespace Modern.Additional.Behaviors
 {
     using System;
     using System.ComponentModel;
@@ -7,7 +7,7 @@ namespace ControlzEx.Behaviors
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-    using ControlzEx.Internal.KnownBoxes;
+    using Modern.Additional.Internal.KnownBoxes;
     using Microsoft.Xaml.Behaviors;
 
     /// <summary>

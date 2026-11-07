@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace ControlzEx.Internal;
+namespace Modern.Additional.Internal;
 
 using System;
 

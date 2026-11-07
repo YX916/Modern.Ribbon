@@ -1,6 +1,6 @@
 #pragma warning disable CA1060, SA1602
 
-namespace ControlzEx.Theming
+namespace Modern.Additional.Theming
 {
     using System;
     using System.Runtime.InteropServices;
@@ -9,7 +9,7 @@ namespace ControlzEx.Theming
     using System.Windows.Controls.Primitives;
     using System.Windows.Interop;
     using System.Windows.Media;
-    using ControlzEx.Internal;
+    using Modern.Additional.Internal;
     using global::Windows.Win32.Foundation;
 
     [Obsolete("This class uses undocumented OS theming methods. Thus this might break at any time.")]

@@ -1,6 +1,6 @@
 // ReSharper disable IdentifierTypo
 // ReSharper disable once CheckNamespace
-namespace ControlzEx.Controls.Internal
+namespace Modern.Additional.Controls.Internal
 {
     using System;
     using System.Collections.Generic;
@@ -10,10 +10,10 @@ namespace ControlzEx.Controls.Internal
     using System.Windows.Controls;
     using System.Windows.Interop;
     using System.Windows.Media;
-    using ControlzEx.Behaviors;
-    using ControlzEx.Helpers;
-    using ControlzEx.Internal;
-    using ControlzEx.Native;
+    using Modern.Additional.Behaviors;
+    using Modern.Additional.Helpers;
+    using Modern.Additional.Internal;
+    using Modern.Additional.Native;
     using global::Windows.Win32;
     using global::Windows.Win32.Foundation;
     using global::Windows.Win32.Graphics.Gdi;
@@ -613,7 +613,7 @@ namespace ControlzEx.Controls.Internal
             }
         }
 
-        public override string ClassName { get; } = "ControlzEx_GlowWindow";
+        public override string ClassName { get; } = "Modern.Additional_GlowWindow";
 
         public bool IsVisible
         {

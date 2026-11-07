@@ -1,9 +1,9 @@
 #pragma warning disable 618
 // ReSharper disable once CheckNamespace
-namespace ControlzEx.Behaviors
+namespace Modern.Additional.Behaviors
 {
     using System.Windows;
-    using ControlzEx.Native;
+    using Modern.Additional.Native;
 
     public static class NonClientControlProperties
     {

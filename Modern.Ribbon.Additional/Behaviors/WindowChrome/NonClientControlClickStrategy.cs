@@ -1,5 +1,5 @@
 // ReSharper disable once CheckNamespace
-namespace ControlzEx.Behaviors
+namespace Modern.Additional.Behaviors
 {
     using System.Windows.Automation.Provider;
 

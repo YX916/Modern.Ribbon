@@ -1,11 +1,11 @@
-﻿namespace ControlzEx
+﻿namespace Modern.Additional
 {
     using System;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Threading;
-    using ControlzEx.Internal.KnownBoxes;
+    using Modern.Additional.Internal.KnownBoxes;
 
     /// <summary>
     /// Helper class for a common focusing problem.

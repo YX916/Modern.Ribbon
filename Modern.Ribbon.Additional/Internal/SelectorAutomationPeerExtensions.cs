@@ -1,4 +1,4 @@
-﻿namespace ControlzEx.Internal
+﻿namespace Modern.Additional.Internal
 {
     using System.Reflection;
     using System.Windows.Automation.Peers;

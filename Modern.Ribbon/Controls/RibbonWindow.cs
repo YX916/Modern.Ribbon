@@ -8,11 +8,11 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using ControlzEx;
+using Modern.Additional;
 using Modern.Extensions;
 using Modern.Helpers;
 using Modern.Internal.KnownBoxes;
-using WindowChrome = ControlzEx.WindowChrome;
+using WindowChrome = Modern.Additional.WindowChrome;
 
 /// <summary>
 /// Represents basic window for ribbon
@@ -258,7 +258,7 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow {
     protected override void OnStateChanged(EventArgs e) {
         base.OnStateChanged(e);
 
-        // todo: remove fix if we update to ControlzEx 4.0
+        // todo: remove fix if we update to Modern.Additional 4.0
         if (this.WindowState == WindowState.Maximized
             && this.SizeToContent != SizeToContent.Manual) {
             this.SizeToContent = SizeToContent.Manual;
@@ -278,7 +278,7 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow {
                     e.Handled = true;
 
 #pragma warning disable 618
-                    ControlzEx.SystemCommands.CloseWindow(this);
+                    Modern.Additional.SystemCommands.CloseWindow(this);
 #pragma warning restore 618
                 }
 

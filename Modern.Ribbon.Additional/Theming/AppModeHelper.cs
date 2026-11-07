@@ -1,7 +1,7 @@
-namespace ControlzEx.Theming;
+namespace Modern.Additional.Theming;
 
 using System;
-using ControlzEx.Helpers;
+using Modern.Additional.Helpers;
 using Windows.Win32;
 
 [Obsolete("This class uses undocumented OS theming methods. Thus this might break at any time.")]

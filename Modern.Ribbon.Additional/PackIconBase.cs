@@ -1,4 +1,4 @@
-namespace ControlzEx
+namespace Modern.Additional
 {
     using System;
     using System.Collections.Generic;

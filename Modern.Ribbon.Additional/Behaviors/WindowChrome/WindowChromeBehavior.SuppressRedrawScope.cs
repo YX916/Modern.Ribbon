@@ -1,7 +1,7 @@
 #pragma warning disable 618
 #pragma warning disable SA1300 // Element should begin with upper-case letter
 // ReSharper disable once CheckNamespace
-namespace ControlzEx.Behaviors
+namespace Modern.Additional.Behaviors
 {
     using System;
     using global::Windows.Win32;

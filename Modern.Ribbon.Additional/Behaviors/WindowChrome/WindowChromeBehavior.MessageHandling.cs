@@ -1,16 +1,16 @@
 #pragma warning disable 618
 #pragma warning disable SA1300 // Element should begin with upper-case letter
 // ReSharper disable once CheckNamespace
-namespace ControlzEx.Behaviors
+namespace Modern.Additional.Behaviors
 {
     using System;
     using System.Runtime.InteropServices;
     using System.Security;
     using System.Windows;
     using System.Windows.Data;
-    using ControlzEx.Helpers;
-    using ControlzEx.Internal;
-    using ControlzEx.Native;
+    using Modern.Additional.Helpers;
+    using Modern.Additional.Internal;
+    using Modern.Additional.Native;
     using global::Windows.Win32;
     using global::Windows.Win32.Foundation;
     using global::Windows.Win32.Graphics.Gdi;
@@ -234,7 +234,7 @@ namespace ControlzEx.Behaviors
                 handled = true;
 
                 var physicalScreenLocation = this._GetKeyboardSystemMenuLocation();
-                ControlzEx.SystemCommands.ShowSystemMenuPhysicalCoordinates(this.windowHandle, physicalScreenLocation);
+                Modern.Additional.SystemCommands.ShowSystemMenuPhysicalCoordinates(this.windowHandle, physicalScreenLocation);
             }
 
             return IntPtr.Zero;
@@ -614,7 +614,7 @@ namespace ControlzEx.Behaviors
             {
                 handled = true;
 
-                ControlzEx.SystemCommands.ShowSystemMenuPhysicalCoordinates(this.AssociatedObject, Utility.GetPoint(lParam));
+                Modern.Additional.SystemCommands.ShowSystemMenuPhysicalCoordinates(this.AssociatedObject, Utility.GetPoint(lParam));
             }
 
             return IntPtr.Zero;

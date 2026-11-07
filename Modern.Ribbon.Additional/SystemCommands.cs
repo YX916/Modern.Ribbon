@@ -1,4 +1,4 @@
-﻿namespace ControlzEx
+﻿namespace Modern.Additional
 {
     using System;
     using System.Runtime.InteropServices;
@@ -7,7 +7,7 @@
     using System.Windows.Input;
     using System.Windows.Interop;
     using System.Windows.Media;
-    using ControlzEx.Internal;
+    using Modern.Additional.Internal;
     using global::Windows.Win32;
     using global::Windows.Win32.Foundation;
     using global::Windows.Win32.UI.WindowsAndMessaging;

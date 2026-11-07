@@ -1,5 +1,5 @@
 ﻿#pragma warning disable 1591, 1573, 618, CA1060
-namespace ControlzEx.Internal
+namespace Modern.Additional.Internal
 {
     using System;
     using System.Windows;

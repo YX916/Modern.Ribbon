@@ -1,4 +1,4 @@
-﻿namespace ControlzEx.Internal.KnownBoxes
+﻿namespace Modern.Additional.Internal.KnownBoxes
 {
     /// <summary>
     /// Class containing boxed values for <see cref="bool"/>.

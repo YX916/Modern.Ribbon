@@ -1,6 +1,6 @@
-namespace ControlzEx;
+namespace Modern.Additional;
 
-using ControlzEx.Helpers;
+using Modern.Additional.Helpers;
 
 public static class FeatureSupport
 {

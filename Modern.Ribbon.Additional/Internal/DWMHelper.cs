@@ -1,11 +1,11 @@
 #pragma warning disable 1591, 1573, 618, CA1060, SA1602, CA1028, CA1008
 // ReSharper disable once CheckNamespace
-namespace ControlzEx.Internal
+namespace Modern.Additional.Internal
 {
     using System;
     using System.Windows;
-    using ControlzEx.Native;
-    using ControlzEx.Theming;
+    using Modern.Additional.Native;
+    using Modern.Additional.Theming;
     using global::Windows.Win32;
     using global::Windows.Win32.Foundation;
     using global::Windows.Win32.Graphics.Dwm;

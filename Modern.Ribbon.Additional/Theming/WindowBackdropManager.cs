@@ -1,11 +1,11 @@
-namespace ControlzEx.Theming
+namespace Modern.Additional.Theming
 {
     using System;
     using System.Windows;
     using System.Windows.Interop;
     using System.Windows.Media;
-    using ControlzEx.Helpers;
-    using ControlzEx.Internal;
+    using Modern.Additional.Helpers;
+    using Modern.Additional.Internal;
 
     public class WindowBackdropManager : DependencyObject
     {

@@ -1,4 +1,4 @@
-namespace ControlzEx.Native;
+namespace Modern.Additional.Native;
 
 using System;
 

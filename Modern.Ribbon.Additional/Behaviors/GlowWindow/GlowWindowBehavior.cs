@@ -2,7 +2,7 @@
 
 #pragma warning disable 618
 // ReSharper disable once CheckNamespace
-namespace ControlzEx.Behaviors
+namespace Modern.Additional.Behaviors
 {
     using System;
     using System.Runtime.InteropServices;
@@ -11,10 +11,10 @@ namespace ControlzEx.Behaviors
     using System.Windows.Interop;
     using System.Windows.Media;
     using System.Windows.Threading;
-    using ControlzEx.Controls;
-    using ControlzEx.Controls.Internal;
-    using ControlzEx.Internal;
-    using ControlzEx.Internal.KnownBoxes;
+    using Modern.Additional.Controls;
+    using Modern.Additional.Controls.Internal;
+    using Modern.Additional.Internal;
+    using Modern.Additional.Internal.KnownBoxes;
     using global::Windows.Win32;
     using global::Windows.Win32.Foundation;
     using global::Windows.Win32.Graphics.Dwm;

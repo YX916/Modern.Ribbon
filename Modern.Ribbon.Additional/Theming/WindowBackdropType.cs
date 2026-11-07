@@ -1,6 +1,6 @@
-namespace ControlzEx.Theming;
+namespace Modern.Additional.Theming;
 
-using ControlzEx.Native;
+using Modern.Additional.Native;
 
 /// <summary>
 /// Mirrors values of DWM_SYSTEMBACKDROP_TYPE

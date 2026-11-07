@@ -1,4 +1,4 @@
-﻿namespace ControlzEx.Internal.KnownBoxes
+﻿namespace Modern.Additional.Internal.KnownBoxes
 {
     using System;
     using System.Windows;

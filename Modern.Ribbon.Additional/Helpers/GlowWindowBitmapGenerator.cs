@@ -1,12 +1,12 @@
-namespace ControlzEx.Helpers
+namespace Modern.Additional.Helpers
 {
     using System;
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-    using ControlzEx.Controls.Internal;
-    using ControlzEx.Internal;
+    using Modern.Additional.Controls.Internal;
+    using Modern.Additional.Internal;
 
     public static class GlowWindowBitmapGenerator
     {

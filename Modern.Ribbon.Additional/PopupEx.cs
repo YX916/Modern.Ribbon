@@ -1,5 +1,5 @@
 #pragma warning disable CA1060
-namespace ControlzEx
+namespace Modern.Additional
 {
     using System;
     using System.Runtime.InteropServices;
@@ -9,7 +9,7 @@ namespace ControlzEx
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using System.Windows.Interop;
-    using ControlzEx.Internal.KnownBoxes;
+    using Modern.Additional.Internal.KnownBoxes;
     using global::Windows.Win32;
     using global::Windows.Win32.Foundation;
     using global::Windows.Win32.UI.WindowsAndMessaging;

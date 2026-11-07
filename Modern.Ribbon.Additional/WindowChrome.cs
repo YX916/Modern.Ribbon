@@ -1,9 +1,9 @@
-﻿namespace ControlzEx
+﻿namespace Modern.Additional
 {
     using System;
     using System.ComponentModel;
     using System.Windows;
-    using ControlzEx.Internal.KnownBoxes;
+    using Modern.Additional.Internal.KnownBoxes;
 
 #pragma warning disable SA1602 // Enumeration items should be documented
     public enum ResizeGripDirection

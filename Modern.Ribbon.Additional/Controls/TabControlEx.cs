@@ -1,4 +1,4 @@
-namespace ControlzEx.Controls
+namespace Modern.Additional.Controls
 {
     using System;
     using System.Collections.Specialized;
@@ -11,9 +11,9 @@ namespace ControlzEx.Controls
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Threading;
-    using ControlzEx.Automation.Peers;
-    using ControlzEx.Internal;
-    using ControlzEx.Internal.KnownBoxes;
+    using Modern.Additional.Automation.Peers;
+    using Modern.Additional.Internal;
+    using Modern.Additional.Internal.KnownBoxes;
 
     /// <summary>
     /// The standard WPF TabControl is quite bad in the fact that it only

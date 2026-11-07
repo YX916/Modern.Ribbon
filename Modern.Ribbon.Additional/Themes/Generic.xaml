@@ -1,16 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:ControlzEx"
-                    xmlns:controls1="clr-namespace:ControlzEx.Controls"
-                    xmlns:theming="clr-namespace:ControlzEx.Theming">
+                    xmlns:controls="clr-namespace:Modern.Additional"
+                    xmlns:controls1="clr-namespace:Modern.Additional.Controls"
+                    xmlns:theming="clr-namespace:Modern.Additional.Theming">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/ControlzEx;component/Themes/TabControlEx.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/ControlzEx;component/Themes/BadgedEx.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Modern.Additional;component/Themes/TabControlEx.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Modern.Additional;component/Themes/BadgedEx.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style BasedOn="{StaticResource ControlzEx.Styles.TabControlEx}" TargetType="{x:Type controls1:TabControlEx}" />
-    <Style BasedOn="{StaticResource ControlzEx.Styles.BadgedEx}" TargetType="{x:Type controls:BadgedEx}" />
+    <Style BasedOn="{StaticResource Modern.Additional.Styles.TabControlEx}" TargetType="{x:Type controls1:TabControlEx}" />
+    <Style BasedOn="{StaticResource Modern.Additional.Styles.BadgedEx}" TargetType="{x:Type controls:BadgedEx}" />
 
     <Style x:Key="{x:Type controls:WindowChromeWindow}" TargetType="{x:Type controls:WindowChromeWindow}">
         <Setter Property="Background" Value="{DynamicResource WhiteBrush}" />

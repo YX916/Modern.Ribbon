@@ -1,9 +1,9 @@
 ﻿#nullable enable
-namespace ControlzEx.Theming
+namespace Modern.Additional.Theming
 {
     using System;
     using System.Windows.Media;
-    using ControlzEx.Internal;
+    using Modern.Additional.Internal;
 
     /// <summary>
     /// This struct represent a Color in HSL (Hue, Saturation, Luminance)

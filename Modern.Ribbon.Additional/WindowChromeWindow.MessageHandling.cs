@@ -1,11 +1,11 @@
-namespace ControlzEx
+namespace Modern.Additional
 {
     using System;
     using System.Security;
     using System.Windows;
     using System.Windows.Interop;
-    using ControlzEx.Internal.KnownBoxes;
-    using ControlzEx.Theming;
+    using Modern.Additional.Internal.KnownBoxes;
+    using Modern.Additional.Theming;
     using Windows.Win32;
     using Windows.Win32.Foundation;
     using Windows.Win32.Graphics.Gdi;

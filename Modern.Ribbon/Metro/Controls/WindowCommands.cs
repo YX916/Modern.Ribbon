@@ -218,7 +218,7 @@ public class WindowCommands : ItemsControl, IDisposable {
         var parentWindow = this.GetParentWindow();
         if (parentWindow is not null) {
 #pragma warning disable 618
-            ControlzEx.SystemCommands.MinimizeWindow(parentWindow);
+            Modern.Additional.SystemCommands.MinimizeWindow(parentWindow);
 #pragma warning restore 618
         }
     }
@@ -227,7 +227,7 @@ public class WindowCommands : ItemsControl, IDisposable {
         var parentWindow = this.GetParentWindow();
         if (parentWindow is not null) {
 #pragma warning disable 618
-            ControlzEx.SystemCommands.MaximizeWindow(parentWindow);
+            Modern.Additional.SystemCommands.MaximizeWindow(parentWindow);
 #pragma warning restore 618
         }
     }
@@ -236,7 +236,7 @@ public class WindowCommands : ItemsControl, IDisposable {
         var parentWindow = this.GetParentWindow();
         if (parentWindow is not null) {
 #pragma warning disable 618
-            ControlzEx.SystemCommands.RestoreWindow(parentWindow);
+            Modern.Additional.SystemCommands.RestoreWindow(parentWindow);
 #pragma warning restore 618
         }
     }
@@ -246,7 +246,7 @@ public class WindowCommands : ItemsControl, IDisposable {
 
         if (parentWindow is not null) {
 #pragma warning disable 618
-            ControlzEx.SystemCommands.CloseWindow(parentWindow);
+            Modern.Additional.SystemCommands.CloseWindow(parentWindow);
 #pragma warning restore 618
         }
     }

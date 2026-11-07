@@ -1,4 +1,4 @@
-namespace ControlzEx.Controls
+namespace Modern.Additional.Controls
 {
     using System;
     using System.Windows.Media;

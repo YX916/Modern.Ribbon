@@ -1,5 +1,5 @@
 ﻿#pragma warning disable 1591, 618
-namespace ControlzEx.Internal
+namespace Modern.Additional.Internal
 {
     using System;
     using System.Diagnostics;
