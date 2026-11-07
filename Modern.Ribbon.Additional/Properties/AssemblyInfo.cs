@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Markup;
@@ -6,9 +6,9 @@ using System.Windows.Markup;
 [assembly: CLSCompliant(true)]
 
 [assembly: XmlnsPrefix("urn:controlzex", "controlzex")]
-[assembly: XmlnsDefinition("urn:controlzex", "Modern.Additional")]
-[assembly: XmlnsDefinition("urn:controlzex", "Modern.Additional.Controls")]
-[assembly: XmlnsDefinition("urn:controlzex", "Modern.Additional.Behaviors")]
-[assembly: XmlnsDefinition("urn:controlzex", "Modern.Additional.Theming")]
+[assembly: XmlnsDefinition("urn:controlzex", "Modern.Additional", AssemblyName = "Modern.Ribbon.Additional")]
+[assembly: XmlnsDefinition("urn:controlzex", "Modern.Additional.Controls", AssemblyName = "Modern.Ribbon.Additional")]
+[assembly: XmlnsDefinition("urn:controlzex", "Modern.Additional.Behaviors", AssemblyName = "Modern.Ribbon.Additional")]
+[assembly: XmlnsDefinition("urn:controlzex", "Modern.Additional.Theming", AssemblyName = "Modern.Ribbon.Additional")]
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
