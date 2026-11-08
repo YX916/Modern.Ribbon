@@ -14,7 +14,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.335">
+		<PackageReference Include="ControlzEx" Version="7.0.4" />
+		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.369">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
@@ -27,10 +28,6 @@
 	<PropertyGroup>
 		<FilesForXamlCombine>Themes\Controls\*.xaml;Themes\Common.xaml</FilesForXamlCombine>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Modern.Ribbon.Additional\Modern.Ribbon.Additional.csproj" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<Resource Include="Themes\Effects\Grayscale.ps" />

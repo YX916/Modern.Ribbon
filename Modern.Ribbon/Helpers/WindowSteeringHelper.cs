@@ -4,7 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using Modern.Additional.Native;
+using ControlzEx.Native;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 
@@ -69,9 +69,9 @@ public static class WindowSteeringHelper {
             e.Handled = true;
 
             if (window.WindowState == WindowState.Normal) {
-                Modern.Additional.SystemCommands.MaximizeWindow(window);
+                ControlzEx.SystemCommands.MaximizeWindow(window);
             } else {
-                Modern.Additional.SystemCommands.RestoreWindow(window);
+                ControlzEx.SystemCommands.RestoreWindow(window);
             }
         }
     }
@@ -101,7 +101,7 @@ public static class WindowSteeringHelper {
         e.Handled = true;
 
 #pragma warning disable 618
-        Modern.Additional.SystemCommands.ShowSystemMenu(window, e);
+        ControlzEx.SystemCommands.ShowSystemMenu(window, e);
 #pragma warning restore 618
     }
 
@@ -112,7 +112,7 @@ public static class WindowSteeringHelper {
     /// <param name="screenLocation">The location at which the system menu should be shown.</param>
     public static void ShowSystemMenu(Window window, Point screenLocation) {
 #pragma warning disable 618
-        Modern.Additional.SystemCommands.ShowSystemMenuPhysicalCoordinates(window, screenLocation);
+        ControlzEx.SystemCommands.ShowSystemMenuPhysicalCoordinates(window, screenLocation);
 #pragma warning restore 618
     }
 }

@@ -8,11 +8,11 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using Modern.Additional;
+using ControlzEx;
 using Modern.Extensions;
 using Modern.Helpers;
 using Modern.Internal.KnownBoxes;
-using WindowChrome = Modern.Additional.WindowChrome;
+using WindowChrome = ControlzEx.WindowChrome;
 
 /// <summary>
 /// Represents basic window for ribbon
@@ -278,7 +278,7 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow {
                     e.Handled = true;
 
 #pragma warning disable 618
-                    Modern.Additional.SystemCommands.CloseWindow(this);
+                    ControlzEx.SystemCommands.CloseWindow(this);
 #pragma warning restore 618
                 }
 
